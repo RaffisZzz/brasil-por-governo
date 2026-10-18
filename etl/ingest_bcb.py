@@ -1,7 +1,7 @@
 """Baixa as séries do catálogo (config.INDICADORES) na API do SGS do Banco Central.
 
-A API devolve no máximo 10 anos por consulta em séries diárias, então tudo é
-baixado em janelas de 10 anos. Cada série vira data/raw/sgs/<indicador>.parquet.
+A API rejeita consultas longas com uma página "Requisição inválida", então tudo
+é baixado em janelas de um ano. Cada série vira data/raw/sgs/<indicador>.parquet.
 """
 import json
 import time
@@ -44,9 +44,10 @@ def baixar_serie(sgs: int, desde: str) -> pd.DataFrame:
     hoje = date.today()
     linhas = []
     while inicio <= hoje:
-        fim = min(date(inicio.year + 9, 12, 31), hoje)
+        fim = min(date(inicio.year, 12, 31), hoje)
         linhas += baixar_janela(sgs, inicio, fim)
         inicio = fim + timedelta(days=1)
+        time.sleep(0.3)  # gentileza com a API
     df = pd.DataFrame(linhas)
     if df.empty:
         return pd.DataFrame(columns=["data", "valor"])
