@@ -1,0 +1,62 @@
+name: Pipeline e site
+
+# Baixa os dados do Banco Central, roda PySpark + DuckDB e publica o site no GitHub Pages.
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 9 5 * *"   # todo dia 5, depois da divulgação das séries mensais
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  dados:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Rodar o pipeline com dados reais
+        run: python run_pipeline.py
+
+      - name: Guardar os CSV para o Power BI
+        uses: actions/upload-artifact@v4
+        with:
+          name: csv-powerbi
+          path: data/powerbi/
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  publicar:
+    needs: dados
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

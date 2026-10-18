@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brasil por Governo</title>
+  <meta name="description" content="Indicadores econômicos de cada governo brasileiro: PIB, inflação, dólar, juros, desemprego, dívida, salário mínimo e reservas, com dados oficiais do Banco Central e do IBGE.">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.1/echarts.min.js" defer></script>
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <header class="barra">
+    <div class="conteudo barra-interna">
+      <a class="marca" href="#/governo">Brasil <span>por Governo</span></a>
+      <nav class="abas" aria-label="Seções">
+        <a href="#/governo" data-aba="governo">Governo</a>
+        <a href="#/comparar" data-aba="comparar">Comparar</a>
+        <a href="#/todos" data-aba="todos">Todos</a>
+        <a href="#/sobre" data-aba="sobre">Sobre</a>
+      </nav>
+    </div>
+  </header>
+
+  <div id="aviso-amostra" class="aviso conteudo" hidden>
+    Esta versão usa uma <strong>amostra sintética</strong> para testes. Os números não são reais.
+  </div>
+
+  <main class="conteudo">
+    <!-- Um governo -->
+    <section id="vista-governo" class="vista" hidden>
+      <div class="linha-tempo" id="linha-tempo" aria-label="Linha do tempo dos governos"></div>
+      <label class="seletor-mobile">Escolha um governo
+        <select id="sel-governo"></select>
+      </label>
+
+      <div class="heroi">
+        <p class="etiqueta" id="g-periodo"></p>
+        <h1 id="g-nome"></h1>
+        <p class="datas" id="g-datas"></p>
+        <p class="obs" id="g-obs"></p>
+      </div>
+
+      <div class="kpis" id="g-kpis"></div>
+      <p class="nota-cobertura" id="g-cobertura"></p>
+      <div class="graficos" id="g-graficos"></div>
+    </section>
+
+    <!-- Comparação -->
+    <section id="vista-comparar" class="vista" hidden>
+      <div class="heroi">
+        <h1>Comparar governos</h1>
+        <p class="datas">Escolha dois governos. Os gráficos alinham os mandatos pelo mês da posse.</p>
+      </div>
+      <div class="seletores-comparar">
+        <label class="sel-a">Governo A <select id="sel-a"></select></label>
+        <button type="button" id="trocar" class="botao-trocar" aria-label="Trocar A e B">⇄</button>
+        <label class="sel-b">Governo B <select id="sel-b"></select></label>
+      </div>
+      <div class="cartao">
+        <table class="tabela comparar" id="tab-comparar"></table>
+      </div>
+      <div class="graficos" id="c-graficos"></div>
+    </section>
+
+    <!-- Todos -->
+    <section id="vista-todos" class="vista" hidden>
+      <div class="heroi">
+        <h1>Todos os governos</h1>
+        <p class="datas">Clique no título de uma coluna para ordenar e numa linha para abrir o governo. Traço significa que não há série oficial para o período.</p>
+      </div>
+      <div class="cartao rolagem">
+        <table class="tabela todos" id="tab-todos"></table>
+      </div>
+    </section>
+
+    <!-- Sobre -->
+    <section id="vista-sobre" class="vista" hidden>
+      <div class="heroi">
+        <h1>Sobre os dados</h1>
+      </div>
+      <div class="cartao texto">
+        <h2>Leia com cuidado</h2>
+        <p>Os indicadores mostram o que aconteceu durante cada mandato, não o quanto cada presidente foi responsável por isso.
+          Crises internacionais, preços de commodities, decisões do Congresso e do Banco Central e heranças do governo anterior
+          pesam tanto quanto as escolhas de quem estava no cargo.</p>
+        <h2>Fontes</h2>
+        <ul id="lista-fontes"></ul>
+        <h2>Como os números são calculados</h2>
+        <ul>
+          <li>Cada mês pertence ao governo que estava no cargo no primeiro dia do mês.</li>
+          <li>Cada ano do PIB pertence ao governo que ocupou a maior parte daquele ano.</li>
+          <li>"Início" e "fim" são o primeiro e o último mês de cada mandato com dado disponível.</li>
+          <li>A inflação acumulada multiplica as variações mensais do IPCA; a média anual distribui esse total pelos meses do mandato.</li>
+          <li>O salário mínimo real é corrigido pelo IPCA até o último mês divulgado.</li>
+          <li>Afastamentos por impeachment contam a partir da data em que o vice assumiu.</li>
+        </ul>
+        <h2>Como foi feito</h2>
+        <ol>
+          <li><strong>Coleta (Python):</strong> as séries são baixadas da API do SGS do Banco Central.</li>
+          <li><strong>ETL (PySpark):</strong> as séries são agregadas por mês e ligadas à linha do tempo dos governos por junção de intervalos de datas.</li>
+          <li><strong>Warehouse (SQL no DuckDB):</strong> as métricas por mandato, o índice de preços e o salário real são consultas SQL.</li>
+          <li><strong>Site (HTML, CSS e JavaScript):</strong> esta página lê os JSON exportados e desenha os gráficos com Apache ECharts.</li>
+          <li><strong>Dashboard (Power BI):</strong> as mesmas tabelas são exportadas em CSV para o Power BI Desktop.</li>
+          <li><strong>Automação (GitHub Actions):</strong> o pipeline roda todo mês e republica o site.</li>
+        </ol>
+        <p>Código no <a href="https://github.com/RaffisZzz/raio-x-saude--munic-pios-">GitHub</a>. <span id="gerado-em"></span></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape conteudo">
+    Dados: Banco Central do Brasil (SGS) e IBGE. Indicadores descrevem o período, não atribuem mérito ou culpa.
+  </footer>
+</body>
+</html>
