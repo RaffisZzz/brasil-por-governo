@@ -13,6 +13,10 @@ CREATE OR REPLACE TABLE fato_pib AS
 SELECT ano, valor AS crescimento, governo_id
 FROM read_parquet('{curado}/pib_anual/*.parquet');
 
+CREATE OR REPLACE TABLE fato_acontecimento AS
+SELECT governo_id, data, precisao, categoria, titulo, descricao
+FROM read_parquet('{curado}/acontecimentos/*.parquet');
+
 -- Número-índice de preços: produto acumulado das variações mensais do IPCA.
 CREATE OR REPLACE VIEW vw_indice_ipca AS
 SELECT mes, exp(sum(ln(1 + valor / 100)) OVER (ORDER BY mes)) AS indice

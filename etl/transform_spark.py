@@ -4,11 +4,12 @@ Saídas em data/curated/:
 - serie_mensal: indicador, mês, valor e o governo em exercício no 1º dia do mês
 - pib_anual:    crescimento do PIB por ano, atribuído ao governo que ocupou mais dias daquele ano
 - governos:     a tabela de governos, com o fim em aberto preenchido com a data de hoje
+- acontecimentos: fatos marcantes, conferidos contra as datas do mandato a que pertencem
 """
 from pyspark.sql import SparkSession, DataFrame, Window
 from pyspark.sql import functions as F
 
-from config import BRUTO, CURADO, GOVERNOS_CSV, INDICADORES
+from config import ACONTECIMENTOS_CSV, BRUTO, CURADO, GOVERNOS_CSV, INDICADORES
 
 
 def ler_governos(spark: SparkSession) -> DataFrame:
@@ -71,6 +72,22 @@ def pib_por_governo(series: DataFrame, governos: DataFrame, spark: SparkSession)
     return anos.join(dono, "ano", "left").orderBy("ano")
 
 
+def ler_acontecimentos(spark: SparkSession, governos: DataFrame) -> DataFrame:
+    eventos = (
+        spark.read.option("header", True).option("encoding", "UTF-8").option("quote", '"').option("escape", '"')
+        .csv(str(ACONTECIMENTOS_CSV))
+        .withColumn("data", F.to_date("data"))
+    )
+    g = governos.select(F.col("id").alias("governo_id"), "inicio", "fim", "em_curso")
+    conferidos = eventos.join(g, "governo_id", "left")
+    fora = conferidos.where(F.col("inicio").isNull() | (F.col("data") < F.col("inicio")) |
+                            (~F.col("em_curso") & (F.col("data") > F.col("fim"))))
+    problemas = [f"{r.governo_id} {r.data} {r.titulo}" for r in fora.collect()]
+    if problemas:
+        raise SystemExit("Acontecimentos fora do mandato:\n  " + "\n  ".join(problemas))
+    return eventos
+
+
 def main() -> None:
     spark = (
         SparkSession.builder.appName("brasil-por-governo")
@@ -87,6 +104,7 @@ def main() -> None:
         "governos": governos,
         "serie_mensal": atribuir_governo_mensal(para_mensal(series), governos),
         "pib_anual": pib_por_governo(series, governos, spark),
+        "acontecimentos": ler_acontecimentos(spark, governos),
     }
     for nome, df in saidas.items():
         df.coalesce(1).write.mode("overwrite").parquet(str(CURADO / nome))

@@ -41,6 +41,17 @@ function el(tag, attrs = {}, ...filhos) {
   return n;
 }
 const governo = (id) => D.governos.find((g) => g.id === id);
+const eventosDe = (gid) => D.acontecimentos.filter((e) => e.governo_id === gid);
+const dataEvento = (e) => (e.precisao === "dia" ? dataLonga(e.data)
+  : e.precisao === "mes" ? `${MESES.at(Number(e.data.slice(5, 7)) - 1)} ${anoDe(e.data)}` : anoDe(e.data));
+
+function listaEventos(eventos) {
+  return eventos.map((e) => el("li", { class: "evento" },
+    el("span", { class: "evento-data" }, dataEvento(e)),
+    el("div", {},
+      el("span", { class: "evento-titulo" }, e.titulo), el("span", { class: "tag" }, e.categoria),
+      el("p", { class: "evento-desc" }, e.descricao))));
+}
 const metrica = (gid, ind) => D.metricas.find((m) => m.governo_id === gid && m.indicador === ind);
 
 // ---------- o que cada cartão mostra ----------
@@ -156,6 +167,10 @@ function graficoHistorico(destino, cfg, g) {
   const ini = Math.max(0, iniMandato - 48);
   const fim = Math.min(meses.length - 1, fimMandato + 48);
 
+  // Acontecimentos do mandato com precisão de dia ou mês viram linhas verticais no gráfico.
+  const eventos = eventosDe(g.id).filter((e) => e.precisao !== "ano" && meses.includes(e.data.slice(0, 7)));
+  const eventosNoMes = (ym) => eventos.filter((e) => e.data.slice(0, 7) === ym);
+
   const c = cartaoGrafico(destino, cfg.titulo, `${cfg.unidade} · arraste a barra de baixo para ver outros períodos`);
   desenhar(c, `g-${cfg.ind}`, () => ({
     ...base(),
@@ -165,7 +180,8 @@ function graficoHistorico(destino, cfg, g) {
       axisPointer: { type: "line", lineStyle: { color: cor("--historico") } },
       formatter: (ps) => {
         const i = ps[0].dataIndex;
-        return `${mesCurto(meses[i])} · ${quem[i]}<br><strong>${fmt(todos[i], cfg.casas)}</strong> ${cfg.unidade}`;
+        const extra = eventosNoMes(meses[i]).map((e) => `<br>◆ ${e.titulo}`).join("");
+        return `${mesCurto(meses[i])} · ${quem[i]}<br><strong>${fmt(todos[i], cfg.casas)}</strong> ${cfg.unidade}${extra}`;
       },
     },
     xAxis: { type: "category", data: meses, ...eixo(), axisLabel: { ...eixo().axisLabel, formatter: (v) => v.slice(0, 4) } },
@@ -182,7 +198,10 @@ function graficoHistorico(destino, cfg, g) {
         itemStyle: { color: cor("--historico") },
         markArea: { silent: true, itemStyle: { color: cor("--faixa") }, data: [[{ xAxis: meses[iniMandato] }, { xAxis: meses[fimMandato] }]] } },
       { name: g.presidente, type: "line", data: mandato, showSymbol: false, connectNulls: false,
-        lineStyle: { width: 2.5, color: cor("--serie-a") }, itemStyle: { color: cor("--serie-a") } },
+        lineStyle: { width: 2.5, color: cor("--serie-a") }, itemStyle: { color: cor("--serie-a") },
+        markLine: { silent: true, symbol: "none", label: { show: false },
+          lineStyle: { color: cor("--text-muted"), type: [3, 3], width: 1 },
+          data: eventos.map((e) => ({ xAxis: e.data.slice(0, 7) })) } },
     ],
   }));
   return true;
@@ -195,7 +214,11 @@ function graficoPib(destino, g) {
     ...base(),
     grid: { left: 40, right: 12, top: 12, bottom: 28 },
     tooltip: { ...dica(), trigger: "item",
-      formatter: (p) => `${D.pib[p.dataIndex][0]} · ${governo(D.pib[p.dataIndex][2])?.presidente ?? ""}<br><strong>${sinal(p.value)}%</strong>` },
+      formatter: (p) => {
+        const [ano, , gid] = D.pib[p.dataIndex];
+        const extra = D.acontecimentos.filter((e) => Number(anoDe(e.data)) === ano).map((e) => `<br>◆ ${e.titulo}`).join("");
+        return `${ano} · ${governo(gid)?.presidente ?? ""}<br><strong>${sinal(p.value)}%</strong>${extra}`;
+      } },
     xAxis: { type: "category", data: D.pib.map((p) => String(p[0])), ...eixo() },
     yAxis: { type: "value", ...eixo(), axisLine: { show: false } },
     series: [{
@@ -266,6 +289,10 @@ function mostrarGoverno(id) {
   document.getElementById("g-cobertura").textContent = semDados
     ? "Não há séries oficiais comparáveis para este período. Os indicadores começam em 1948 (PIB), 1980 (inflação) e 1994 (dólar, juros e salário mínimo)."
     : "";
+
+  const eventos = eventosDe(g.id);
+  document.getElementById("g-eventos-cartao").hidden = !eventos.length;
+  document.getElementById("g-eventos").replaceChildren(...listaEventos(eventos));
 
   limparGraficos("g-");
   const destino = document.getElementById("g-graficos");
@@ -338,6 +365,12 @@ function mostrarComparar(idA, idB) {
       el("th", { class: "num a" }, ga.presidente, el("span", { class: "sub" }, periodo(ga))),
       el("th", { class: "num b" }, gb.presidente, el("span", { class: "sub" }, periodo(gb))))),
     el("tbody", {}, CARTOES.map((cfg) => el("tr", {}, el("td", {}, cfg.rotulo), celula(cfg, ga.id), celula(cfg, gb.id)))));
+
+  document.getElementById("c-eventos").replaceChildren(...[[ga, "a"], [gb, "b"]].map(([g, lado]) => {
+    const ev = eventosDe(g.id);
+    return el("div", { class: `cartao ${lado}` }, el("h2", {}, `Acontecimentos: ${g.presidente}`),
+      ev.length ? el("ol", { class: "eventos-lista" }, listaEventos(ev)) : el("p", { class: "explica" }, "Nenhum acontecimento cadastrado."));
+  }));
 
   limparGraficos("c-");
   const destino = document.getElementById("c-graficos");
@@ -450,7 +483,7 @@ function rotear() {
 }
 
 async function main() {
-  const nomes = ["governos", "metricas", "series", "pib", "indicadores", "meta"];
+  const nomes = ["governos", "acontecimentos", "metricas", "series", "pib", "indicadores", "meta"];
   const dados = await Promise.all(nomes.map((n) => fetch(`data/${n}.json`).then((r) => r.json())));
   nomes.forEach((n, i) => (D[n] = dados[i]));
 

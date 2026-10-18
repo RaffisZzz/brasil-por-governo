@@ -37,6 +37,7 @@ def main() -> None:
     metricas = tabelas["metricas"].astype(object).where(tabelas["metricas"].notna(), None)
 
     gravar_json("governos", tabelas["governos"].to_dict(orient="records"))
+    gravar_json("acontecimentos", tabelas["acontecimentos"].to_dict(orient="records"))
     gravar_json("metricas", metricas.to_dict(orient="records"))
     gravar_json("series", series)
     gravar_json("pib", tabelas["pib"].astype(object).where(tabelas["pib"].notna(), None).values.tolist())

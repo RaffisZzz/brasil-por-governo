@@ -25,6 +25,7 @@ dados/governos.csv ─────────► transform_spark.py (PySpark) d
 | Pasta | O que tem |
 | --- | --- |
 | `dados/governos.csv` | Linha do tempo dos governos, mantida à mão |
+| `dados/acontecimentos.csv` | Acontecimentos marcantes de cada governo (lista editorial; o pipeline confere se cada data cai dentro do mandato) |
 | `etl/` | Coleta (Python), transformação (PySpark), warehouse e exportação |
 | `sql/` | Modelo do warehouse e consultas de exportação (DuckDB) |
 | `site/` | Site estático: HTML, CSS e JavaScript |

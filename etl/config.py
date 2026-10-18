@@ -3,6 +3,7 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 GOVERNOS_CSV = RAIZ / "dados" / "governos.csv"
+ACONTECIMENTOS_CSV = RAIZ / "dados" / "acontecimentos.csv"
 DADOS = RAIZ / "data"
 BRUTO = DADOS / "raw"            # séries como vieram da API, em Parquet
 CURADO = DADOS / "curated"       # saída do PySpark
