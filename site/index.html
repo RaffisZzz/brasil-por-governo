@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Brasil por Governo</title>
-  <meta name="description" content="Indicadores econômicos de cada governo brasileiro: PIB, inflação, dólar, juros, desemprego, dívida, salário mínimo e reservas, com dados oficiais do Banco Central e do IBGE.">
+  <meta name="description" content="Indicadores econômicos de cada governo brasileiro: PIB, inflação, dólar, juros, desemprego, dívida, salário mínimo e reservas, com dados oficiais do Banco Central e do IBGE reunidos pelo Ipeadata.">
   <link rel="stylesheet" href="assets/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.1/echarts.min.js" defer></script>
   <script src="assets/app.js" defer></script>
@@ -103,7 +103,7 @@
         </ul>
         <h2>Como foi feito</h2>
         <ol>
-          <li><strong>Coleta (Python):</strong> as séries são baixadas da API do SGS do Banco Central.</li>
+          <li><strong>Coleta (Python):</strong> as séries do Banco Central e do IBGE são baixadas da API do Ipeadata.</li>
           <li><strong>ETL (PySpark):</strong> as séries são agregadas por mês e ligadas à linha do tempo dos governos por junção de intervalos de datas.</li>
           <li><strong>Warehouse (SQL no DuckDB):</strong> as métricas por mandato, o índice de preços e o salário real são consultas SQL.</li>
           <li><strong>Site (HTML, CSS e JavaScript):</strong> esta página lê os JSON exportados e desenha os gráficos com Apache ECharts.</li>
@@ -116,7 +116,7 @@
   </main>
 
   <footer class="rodape conteudo">
-    Dados: Banco Central do Brasil (SGS) e IBGE. Indicadores descrevem o período, não atribuem mérito ou culpa.
+    Dados: Banco Central do Brasil e IBGE, via Ipeadata. Indicadores descrevem o período, não atribuem mérito ou culpa.
   </footer>
 </body>
 </html>

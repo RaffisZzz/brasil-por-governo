@@ -1,6 +1,6 @@
 name: Pipeline e site
 
-# Baixa os dados do Banco Central, roda PySpark + DuckDB e publica o site no GitHub Pages.
+# Baixa os dados do Ipeadata (Banco Central e IBGE), roda PySpark + DuckDB e publica o site no GitHub Pages.
 # Em pull requests roda só a parte de dados, para validar sem publicar.
 on:
   push:
@@ -23,18 +23,6 @@ jobs:
   dados:
     runs-on: ubuntu-latest
     steps:
-      - name: Testar acesso às fontes de dados
-        run: |
-          testar() { echo "$1 -> $(curl -s -m 60 -A 'curl/8.5.0' -o /tmp/r -w '%{http_code}' "$2") $(head -c 120 /tmp/r | tr -d '\r\n')"; }
-          testar "BCB 433 2020" 'https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01/01/2020&dataFinal=31/12/2020'
-          testar "BCB 1 2020" 'https://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados?formato=json&dataInicial=01/01/2020&dataFinal=31/12/2020'
-          testar "BCB 433 ultimos" 'https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados/ultimos/3?formato=json'
-          testar "BCB 433 csv" 'https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=csv&dataInicial=01/01/2020&dataFinal=31/12/2020'
-          testar "IPEA" "http://www.ipeadata.gov.br/api/odata4/ValoresSerie(SERCODIGO='PRECOS12_IPCAG12')"
-          testar "IBGE SIDRA" 'https://apisidra.ibge.gov.br/values/t/1737/n1/all/v/63/p/202001'
-          testar "World Bank" 'https://api.worldbank.org/v2/country/BRA/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=2'
-          testar "FRED" 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=DEXBZUS'
-
       - uses: actions/checkout@v4
 
       - uses: actions/setup-java@v4

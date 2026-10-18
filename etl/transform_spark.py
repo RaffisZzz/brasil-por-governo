@@ -1,4 +1,4 @@
-"""Une as séries do Banco Central à linha do tempo dos governos usando PySpark.
+"""Une as séries econômicas à linha do tempo dos governos usando PySpark.
 
 Saídas em data/curated/:
 - serie_mensal: indicador, mês, valor e o governo em exercício no 1º dia do mês
@@ -25,8 +25,10 @@ def ler_governos(spark: SparkSession) -> DataFrame:
 def ler_series(spark: SparkSession) -> DataFrame:
     partes = []
     for nome, cfg in INDICADORES.items():
+        if "derivado" in cfg:
+            continue
         df = (
-            spark.read.parquet(str(BRUTO / "sgs" / f"{nome}.parquet"))
+            spark.read.parquet(str(BRUTO / "series" / f"{nome}.parquet"))
             .select(F.col("data").cast("date").alias("data"), F.col("valor").cast("double").alias("valor"))
             .where(F.col("data") >= F.lit(cfg["desde"]).cast("date"))
             .withColumn("indicador", F.lit(nome))
@@ -40,13 +42,26 @@ def ler_series(spark: SparkSession) -> DataFrame:
 
 
 def para_mensal(series: DataFrame) -> DataFrame:
-    # Séries diárias viram média do mês; mensais ficam como estão (uma linha por mês).
+    # Uma linha por indicador e mês (se uma série vier com mais de um valor no mês, vale a média).
     return (
         series.where(F.col("frequencia") != "anual")
         .withColumn("mes", F.trunc("data", "month"))
         .groupBy("indicador", "mes")
         .agg(F.avg("valor").alias("valor"))
     )
+
+
+def com_ipca_12m(mensal: DataFrame) -> DataFrame:
+    # Inflação em 12 meses: produto das 12 últimas variações mensais, numa janela deslizante.
+    w = Window.orderBy("mes").rowsBetween(-11, 0)
+    acumulado = (
+        mensal.where(F.col("indicador") == "ipca")
+        .withColumn("n", F.count("valor").over(w))
+        .withColumn("valor", 100 * (F.exp(F.sum(F.log1p(F.col("valor") / 100)).over(w)) - 1))
+        .where(F.col("n") == 12)
+        .select(F.lit("ipca_12m").alias("indicador"), "mes", "valor")
+    )
+    return mensal.unionByName(acumulado)
 
 
 def atribuir_governo_mensal(mensal: DataFrame, governos: DataFrame) -> DataFrame:
@@ -102,7 +117,7 @@ def main() -> None:
 
     saidas = {
         "governos": governos,
-        "serie_mensal": atribuir_governo_mensal(para_mensal(series), governos),
+        "serie_mensal": atribuir_governo_mensal(com_ipca_12m(para_mensal(series)), governos),
         "pib_anual": pib_por_governo(series, governos, spark),
         "acontecimentos": ler_acontecimentos(spark, governos),
     }

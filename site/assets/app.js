@@ -88,7 +88,7 @@ const CARTOES = [
     numero: (m) => m.variacao_pp,
   },
   {
-    ind: "divida_bruta", rotulo: "Dívida bruta do governo",
+    ind: "divida", rotulo: "Dívida líquida do setor público",
     principal: (m) => `${sinal(m.variacao_pp)} p.p. do PIB`,
     sub: (m) => `de ${fmt(m.valor_inicio)}% para ${fmt(m.valor_fim)}% do PIB`,
     numero: (m) => m.variacao_pp,
@@ -148,7 +148,7 @@ const GRAFICOS_LINHA = [
   { ind: "dolar", titulo: "Dólar", unidade: "R$", casas: 2 },
   { ind: "selic", titulo: "Taxa Selic", unidade: "% a.a.", casas: 1 },
   { ind: "desemprego", titulo: "Desemprego", unidade: "%", casas: 1 },
-  { ind: "divida_bruta", titulo: "Dívida bruta do governo", unidade: "% do PIB", casas: 1 },
+  { ind: "divida", titulo: "Dívida líquida do setor público", unidade: "% do PIB", casas: 1 },
   { ind: "salario_real", titulo: "Salário mínimo real", unidade: "R$ de hoje", casas: 0 },
   { ind: "reservas", titulo: "Reservas internacionais", unidade: "US$ bi", casas: 1, escala: 1 / 1000 },
 ];
@@ -287,7 +287,7 @@ function mostrarGoverno(id) {
   document.getElementById("g-kpis").replaceChildren(...CARTOES.map((c) => cartaoKpi(c, metrica(g.id, c.ind), g.id)));
   const semDados = CARTOES.every((c) => !metrica(g.id, c.ind));
   document.getElementById("g-cobertura").textContent = semDados
-    ? "Não há séries oficiais comparáveis para este período. Os indicadores começam em 1948 (PIB), 1980 (inflação) e 1994 (dólar, juros e salário mínimo)."
+    ? "Não há séries oficiais comparáveis para este período. Os indicadores começam em 1901 (PIB), 1980 (inflação) e 1994 (dólar, juros e salário mínimo)."
     : "";
 
   const eventos = eventosDe(g.id);
@@ -335,7 +335,7 @@ const GRAFICOS_COMPARAR = [
   { ind: "selic", modo: "nivel", titulo: "Taxa Selic", unidade: "% a.a." },
   { ind: "desemprego", modo: "nivel", titulo: "Desemprego", unidade: "%" },
   { ind: "salario_real", modo: "variacao", titulo: "Variação do salário mínimo real desde a posse", unidade: "%" },
-  { ind: "divida_bruta", modo: "nivel", titulo: "Dívida bruta do governo", unidade: "% do PIB" },
+  { ind: "divida", modo: "nivel", titulo: "Dívida líquida do setor público", unidade: "% do PIB" },
   { ind: "reservas", modo: "variacao", titulo: "Variação das reservas desde a posse", unidade: "%" },
 ];
 
@@ -433,7 +433,7 @@ const COLUNAS_TODOS = [
   { titulo: "Dólar (var. %)", ind: "dolar", valor: (m) => m.variacao_pct, f: (v) => sinal(v) },
   { titulo: "Selic média (%)", ind: "selic", valor: (m) => m.media, f: (v) => fmt(v) },
   { titulo: "Desemprego (p.p.)", ind: "desemprego", valor: (m) => m.variacao_pp, f: (v) => sinal(v) },
-  { titulo: "Dívida (p.p. do PIB)", ind: "divida_bruta", valor: (m) => m.variacao_pp, f: (v) => sinal(v) },
+  { titulo: "Dívida (p.p. do PIB)", ind: "divida", valor: (m) => m.variacao_pp, f: (v) => sinal(v) },
   { titulo: "Salário real (var. %)", ind: "salario_real", valor: (m) => m.variacao_pct, f: (v) => sinal(v) },
 ];
 let ordemTodos = { col: -1, dir: 1 };
@@ -465,8 +465,8 @@ function mostrarTodos() {
 // ---------- vista: sobre ----------
 function montarSobre() {
   document.getElementById("lista-fontes").replaceChildren(...Object.values(D.indicadores).map((c) =>
-    el("li", {}, el("strong", {}, `${c.nome}: `), `${c.nota} Série SGS ${c.sgs} do `,
-      el("a", { href: `https://www3.bcb.gov.br/sgspub/consultarvalores/telaCvsSelecionarSeries.paint?codigo=${c.sgs}` }, "Banco Central"), ".")));
+    el("li", {}, el("strong", {}, `${c.nome}: `), c.nota,
+      c.ipea ? [` Fonte: ${c.fonte}, série ${c.ipea} no `, el("a", { href: "http://www.ipeadata.gov.br" }, "Ipeadata"), "."] : "")));
   document.getElementById("gerado-em").textContent = `Dados atualizados em ${dataLonga(D.meta.gerado_em)}.`;
 }
 

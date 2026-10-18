@@ -1,4 +1,4 @@
-"""Configuração central: caminhos e o catálogo de indicadores coletados no Banco Central (SGS)."""
+"""Configuração central: caminhos e o catálogo de indicadores coletados no Ipeadata."""
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
@@ -11,53 +11,56 @@ WAREHOUSE = DADOS / "warehouse.duckdb"
 SITE_DADOS = RAIZ / "site" / "data"
 MARCA_AMOSTRA = BRUTO / "AMOSTRA_SINTETICA"
 
-# Séries do SGS (https://www3.bcb.gov.br/sgspub). "faixa" é uma checagem de sanidade:
-# se a maior parte dos valores cair fora dela, o código provavelmente está errado e o
-# pipeline avisa. "desde" corta períodos em que a série não é comparável.
+# Séries do Ipeadata (http://www.ipeadata.gov.br), que republica as séries do Banco Central
+# e do IBGE numa API aberta. A API do SGS do Banco Central recusa servidores fora do Brasil,
+# como os do GitHub Actions, e por isso não é usada. "fonte" é quem produz o dado.
+# "faixa" é uma checagem de sanidade: se a maior parte dos valores cair fora dela, o código
+# provavelmente está errado e o pipeline avisa. "desde" corta períodos em que a série não é
+# comparável. "derivado" marca séries calculadas no PySpark a partir de outra.
 INDICADORES = {
     "dolar": {
-        "sgs": 1, "nome": "Dólar comercial (venda)", "unidade": "R$/US$",
-        "frequencia": "diaria", "desde": "1994-07-01", "faixa": (0.5, 10),
-        "nota": "Média mensal da cotação diária. Começa no Plano Real, quando a moeda passa a ser comparável.",
+        "ipea": "BM12_ERC12", "fonte": "Banco Central", "nome": "Dólar comercial", "unidade": "R$/US$",
+        "frequencia": "mensal", "desde": "1994-07-01", "faixa": (0.5, 10),
+        "nota": "Média mensal da cotação de compra. Começa no Plano Real, quando a moeda passa a ser comparável.",
     },
     "ipca": {
-        "sgs": 433, "nome": "Inflação (IPCA) no mês", "unidade": "% no mês",
+        "ipea": "PRECOS12_IPCAG12", "fonte": "IBGE", "nome": "Inflação (IPCA) no mês", "unidade": "% no mês",
         "frequencia": "mensal", "desde": "1980-01-01", "faixa": (-2, 90),
         "nota": "Variação mensal do IPCA, medido pelo IBGE.",
     },
     "ipca_12m": {
-        "sgs": 13522, "nome": "Inflação (IPCA) em 12 meses", "unidade": "% em 12 meses",
+        "derivado": "ipca", "nome": "Inflação (IPCA) em 12 meses", "unidade": "% em 12 meses",
         "frequencia": "mensal", "desde": "1980-01-01", "faixa": (-2, 7000),
-        "nota": "IPCA acumulado nos 12 meses anteriores.",
+        "nota": "IPCA acumulado nos 12 meses anteriores, calculado a partir da variação mensal.",
     },
     "selic": {
-        "sgs": 4189, "nome": "Taxa Selic", "unidade": "% ao ano",
+        "ipea": "BM12_TJOVER12", "fonte": "Banco Central", "anualizar": True, "nome": "Taxa Selic", "unidade": "% ao ano",
         "frequencia": "mensal", "desde": "1994-07-01", "faixa": (1, 70),
         "nota": "Selic acumulada no mês, anualizada. Começa no Plano Real.",
     },
     "desemprego": {
-        "sgs": 24369, "nome": "Taxa de desemprego", "unidade": "%",
+        "ipea": "PNADC12_TDESOC12", "fonte": "IBGE", "nome": "Taxa de desemprego", "unidade": "%",
         "frequencia": "mensal", "desde": "2012-03-01", "faixa": (3, 20),
         "nota": "Taxa de desocupação da PNAD Contínua (IBGE), trimestre móvel. Série comparável começa em 2012.",
     },
-    "divida_bruta": {
-        "sgs": 13762, "nome": "Dívida bruta do governo", "unidade": "% do PIB",
-        "frequencia": "mensal", "desde": "2006-12-01", "faixa": (40, 100),
-        "nota": "Dívida bruta do governo geral, metodologia a partir de 2008.",
+    "divida": {
+        "ipea": "PAN12_DTSPY12", "fonte": "Banco Central", "nome": "Dívida líquida do setor público", "unidade": "% do PIB",
+        "frequencia": "mensal", "desde": "1991-01-01", "faixa": (10, 100),
+        "nota": "Dívida líquida do setor público consolidado (União, estados, municípios e estatais), fim de mês.",
     },
     "salario_minimo": {
-        "sgs": 1619, "nome": "Salário mínimo", "unidade": "R$",
+        "ipea": "MTE12_SALMIN12", "fonte": "Ministério do Trabalho", "nome": "Salário mínimo", "unidade": "R$",
         "frequencia": "mensal", "desde": "1994-07-01", "faixa": (60, 5000),
         "nota": "Valor nominal. O site mostra também o valor real, corrigido pelo IPCA.",
     },
     "reservas": {
-        "sgs": 3546, "nome": "Reservas internacionais", "unidade": "US$ milhões",
+        "ipea": "BM12_RES12", "fonte": "Banco Central", "nome": "Reservas internacionais", "unidade": "US$ milhões",
         "frequencia": "mensal", "desde": "1970-01-01", "faixa": (100, 500_000),
-        "nota": "Reservas internacionais no conceito liquidez, fim de mês.",
+        "nota": "Reservas internacionais, fim de mês.",
     },
     "pib": {
-        "sgs": 7326, "nome": "Crescimento do PIB", "unidade": "% ao ano",
-        "frequencia": "anual", "desde": "1948-01-01", "faixa": (-10, 20),
-        "nota": "Variação real anual do PIB (IBGE). Cada ano é atribuído ao governo que ocupou a maior parte dele.",
+        "ipea": "SCN10_PIBG10", "fonte": "IBGE", "nome": "Crescimento do PIB", "unidade": "% ao ano",
+        "frequencia": "anual", "desde": "1901-01-01", "faixa": (-10, 20),
+        "nota": "Variação real anual do PIB (IBGE; antes de 1948, estimativas históricas). Cada ano é atribuído ao governo que ocupou a maior parte dele.",
     },
 }

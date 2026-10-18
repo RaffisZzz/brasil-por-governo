@@ -23,21 +23,20 @@ def passeio(n: int, ini: float, passo: float, lo: float, hi: float, rng) -> np.n
 
 def main() -> None:
     rng = np.random.default_rng(7)
-    destino = BRUTO / "sgs"
+    destino = BRUTO / "series"
     destino.mkdir(parents=True, exist_ok=True)
     hoje = pd.Timestamp.today().normalize()
     for nome, cfg in INDICADORES.items():
+        if "derivado" in cfg:
+            continue
         lo, hi = cfg["faixa"]
-        if cfg["frequencia"] == "diaria":
-            datas = pd.bdate_range(cfg["desde"], hoje)
-            valores = passeio(len(datas), 1.0, 0.012, 0.8, 6.5, rng)
-        elif cfg["frequencia"] == "anual":
+        if cfg["frequencia"] == "anual":
             datas = pd.date_range(cfg["desde"], hoje, freq="YS")
             valores = rng.normal(3, 3, len(datas)).clip(lo, hi)
         else:
             datas = pd.date_range(cfg["desde"], hoje, freq="MS")
-            ini = {"ipca": 1.0, "ipca_12m": 12, "salario_minimo": 70, "reservas": 20_000}.get(nome, (lo + hi) / 2)
-            passo = {"ipca": 0.3, "ipca_12m": 1.0, "salario_minimo": 6, "reservas": 2_000}.get(nome, (hi - lo) / 40)
+            ini = {"ipca": 1.0, "dolar": 1.0, "salario_minimo": 70, "reservas": 20_000}.get(nome, (lo + hi) / 2)
+            passo = {"ipca": 0.3, "dolar": 0.08, "salario_minimo": 6, "reservas": 2_000}.get(nome, (hi - lo) / 40)
             valores = passeio(len(datas), ini, passo, lo, hi, rng)
             if nome == "salario_minimo":
                 valores = np.maximum.accumulate(valores)

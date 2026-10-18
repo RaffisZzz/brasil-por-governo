@@ -2,14 +2,14 @@
 
 Site que mostra como estavam os principais indicadores econômicos em cada governo brasileiro, de Deodoro da Fonseca até hoje, e permite comparar dois governos lado a lado.
 
-**Indicadores:** crescimento do PIB, inflação (IPCA), dólar, taxa Selic, desemprego, dívida bruta do governo, salário mínimo real e reservas internacionais. Cada um aparece a partir de quando existe série oficial comparável (PIB desde 1948, inflação desde 1980, dólar, Selic e salário mínimo desde o Plano Real, desemprego desde 2012).
+**Indicadores:** crescimento do PIB, inflação (IPCA), dólar, taxa Selic, desemprego, dívida líquida do setor público, salário mínimo real e reservas internacionais. Cada um aparece a partir de quando existe série oficial comparável (PIB desde 1901, inflação desde 1980, dívida desde 1991, dólar, Selic e salário mínimo desde o Plano Real, desemprego desde 2012).
 
 > Os indicadores descrevem o período de cada mandato. Eles não medem quanto cada presidente foi responsável pelo resultado.
 
 ## Arquitetura
 
 ```
-API SGS do Banco Central ──► ingest_bcb.py (Python)       data/raw/sgs/*.parquet
+API do Ipeadata ────────► ingest_ipea.py (Python)       data/raw/series/*.parquet
                                      │
 dados/governos.csv ─────────► transform_spark.py (PySpark) data/curated/
                                      │  junção por intervalo de datas: cada mês e ano ganha o seu governo
@@ -53,5 +53,5 @@ O workflow `.github/workflows/pipeline.yml` roda a cada push na `main`, todo dia
 
 ## Fontes
 
-- Banco Central do Brasil, [Sistema Gerenciador de Séries Temporais](https://www3.bcb.gov.br/sgspub). Os códigos das séries estão em `etl/config.py`.
-- IBGE, por meio das séries do SGS (PIB, IPCA e PNAD Contínua).
+- [Ipeadata](http://www.ipeadata.gov.br), que republica numa API aberta as séries do Banco Central (dólar, Selic, dívida, reservas), do IBGE (PIB, IPCA, PNAD Contínua) e do Ministério do Trabalho (salário mínimo). Os códigos das séries estão em `etl/config.py`.
+- A API do SGS do Banco Central seria a fonte direta, mas recusa conexões de servidores fora do Brasil, como os do GitHub Actions.

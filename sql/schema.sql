@@ -85,7 +85,7 @@ SELECT
     CASE WHEN m.indicador = 'ipca' THEN 100 * (power(1 + m.acumulado / 100, 12.0 / m.meses) - 1) END AS media_anual,
     CASE WHEN m.indicador IN ('dolar', 'salario_minimo', 'salario_real', 'reservas')
          THEN 100 * (m.valor_fim / m.valor_inicio - 1) END                                            AS variacao_pct,
-    CASE WHEN m.indicador IN ('desemprego', 'divida_bruta', 'selic', 'ipca_12m')
+    CASE WHEN m.indicador IN ('desemprego', 'divida', 'selic', 'ipca_12m')
          THEN m.valor_fim - m.valor_inicio END                                                        AS variacao_pp,
     CASE WHEN m.indicador = 'pib' THEN 'anual'
          WHEN m.primeiro_mes > date_trunc('month', g.inicio) + INTERVAL 1 MONTH THEN 'parcial'
