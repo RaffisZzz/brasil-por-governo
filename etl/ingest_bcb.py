@@ -19,17 +19,23 @@ CABECALHOS = {"User-Agent": "brasil-por-governo/1.0 (projeto de portfolio)", "Ac
 
 def baixar_janela(sgs: int, ini: date, fim: date) -> list[dict]:
     url = URL.format(sgs=sgs, ini=ini.strftime("%d/%m/%Y"), fim=fim.strftime("%d/%m/%Y"))
-    for tentativa in range(4):
+    for tentativa in range(5):
+        corpo = b""
         try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers=CABECALHOS), timeout=60) as r:
-                return json.load(r)
+            with urllib.request.urlopen(urllib.request.Request(url, headers=CABECALHOS), timeout=90) as r:
+                corpo = r.read()
+                return json.loads(corpo)
         except urllib.error.HTTPError as e:
             if e.code == 404:  # janela sem dados
                 return []
-            erro = e
-        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
-            erro = e
-        time.sleep(2 ** tentativa)
+            erro = f"HTTP {e.code}: {e.read()[:300]!r}"
+        except (urllib.error.URLError, TimeoutError) as e:
+            erro = repr(e)
+        except json.JSONDecodeError:
+            # A API às vezes responde com uma página HTML de erro em vez de JSON.
+            erro = f"resposta não é JSON: {corpo[:300]!r}"
+        print(f"  tentativa {tentativa + 1} falhou ({erro}); tentando de novo", flush=True)
+        time.sleep(3 * 2 ** tentativa)
     raise RuntimeError(f"SGS {sgs}: falhou em {ini}–{fim}: {erro}")
 
 
