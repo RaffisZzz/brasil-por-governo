@@ -1,9 +1,11 @@
 name: Pipeline e site
 
 # Baixa os dados do Banco Central, roda PySpark + DuckDB e publica o site no GitHub Pages.
+# Em pull requests roda só a parte de dados, para validar sem publicar.
 on:
   push:
     branches: [main]
+  pull_request:
   schedule:
     - cron: "0 9 5 * *"   # todo dia 5, depois da divulgação das séries mensais
   workflow_dispatch:
@@ -45,14 +47,13 @@ jobs:
           name: csv-powerbi
           path: data/powerbi/
 
-      - uses: actions/configure-pages@v5
-
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
   publicar:
     needs: dados
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
