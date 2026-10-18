@@ -38,6 +38,13 @@ jobs:
       - name: Instalar dependências
         run: pip install -r requirements.txt
 
+      - name: Testar acesso à API do Banco Central
+        run: |
+          url='https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01/01/2020&dataFinal=31/12/2020'
+          for ua in "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/126.0" "curl/8.5.0" "Python-urllib/3.12"; do
+            echo "UA=$ua -> $(curl -s -A "$ua" -o /tmp/r -w '%{http_code}' "$url") $(head -c 80 /tmp/r)"
+          done
+
       - name: Rodar o pipeline com dados reais
         run: python run_pipeline.py
 

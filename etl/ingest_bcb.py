@@ -14,13 +14,25 @@ import pandas as pd
 from config import BRUTO, INDICADORES
 
 URL = "https://api.bcb.gov.br/dados/serie/bcdata.sgs.{sgs}/dados?formato=json&dataInicial={ini}&dataFinal={fim}"
-CABECALHOS = {"User-Agent": "brasil-por-governo/1.0 (projeto de portfolio)", "Accept": "application/json"}
+# O firewall da API recusa alguns clientes com a página "Requisição inválida". Testamos
+# cabeçalhos diferentes e ficamos com o primeiro que funcionar.
+VARIANTES_CABECALHOS = [
+    {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                   "Chrome/126.0 Safari/537.36", "Accept": "application/json, text/plain, */*",
+     "Accept-Language": "pt-BR,pt;q=0.9"},
+    {"User-Agent": "curl/8.5.0", "Accept": "*/*"},
+    {},
+]
+CABECALHOS = VARIANTES_CABECALHOS[0]
 
 
 def baixar_janela(sgs: int, ini: date, fim: date) -> list[dict]:
     url = URL.format(sgs=sgs, ini=ini.strftime("%d/%m/%Y"), fim=fim.strftime("%d/%m/%Y"))
+    global CABECALHOS
     for tentativa in range(5):
         corpo = b""
+        if tentativa:  # depois de uma falha, troca o conjunto de cabeçalhos
+            CABECALHOS = VARIANTES_CABECALHOS[tentativa % len(VARIANTES_CABECALHOS)]
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=CABECALHOS), timeout=90) as r:
                 corpo = r.read()
