@@ -114,6 +114,24 @@ select {
 .heroi h1 { margin: 4px 0 6px; font-size: clamp(30px, 5vw, 46px); line-height: 1.1; letter-spacing: -0.02em; }
 .datas { margin: 0; color: var(--text-secondary); font-size: 17px; }
 .obs { margin: 6px 0 0; color: var(--text-muted); font-size: 15px; }
+.partido { margin: 4px 0 0; color: var(--text-secondary); font-size: 15px; }
+.anos-titulo { color: var(--text-muted); font-weight: 500; font-size: 0.6em; letter-spacing: 0; white-space: nowrap; }
+.heroi.com-retrato { display: flex; gap: 20px; align-items: center; }
+.moldura { margin: 0; flex: none; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.credito { font-size: 11px; color: var(--text-muted); }
+.credito a { color: inherit; }
+
+/* Retratos */
+.retrato {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  border-radius: 50%; object-fit: cover; object-position: center 20%;
+  background: var(--grade); border: 1px solid var(--borda);
+}
+.retrato.grande { width: 112px; height: 112px; }
+.retrato.mini { width: 40px; height: 40px; }
+.retrato.sem-foto { color: var(--text-secondary); font-weight: 650; letter-spacing: .02em; }
+.retrato.grande.sem-foto { font-size: 34px; }
+.retrato.mini.sem-foto { font-size: 14px; }
 
 /* KPIs */
 .kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
@@ -176,6 +194,12 @@ select {
 .tabela .sub { display: block; color: var(--text-muted); font-size: 12.5px; }
 .tabela.comparar th.a { color: var(--serie-a); }
 .tabela.comparar th.b { color: var(--serie-b); }
+.cabeca-governo { display: inline-flex; align-items: center; gap: 10px; text-align: left; }
+.tabela .maior { white-space: nowrap; }
+.vencedor { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+.ponto { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.ponto.a { background: var(--serie-a); }
+.ponto.b { background: var(--serie-b); }
 .tabela.todos th { cursor: pointer; user-select: none; white-space: nowrap; }
 .tabela.todos th[aria-sort="ascending"]::after { content: " ↑"; }
 .tabela.todos th[aria-sort="descending"]::after { content: " ↓"; }
@@ -198,4 +222,7 @@ select {
   .botao-trocar { justify-self: center; }
   .kpi-valor { font-size: 26px; }
   .evento { grid-template-columns: 1fr; }
+  .retrato.grande { width: 80px; height: 80px; }
+  .retrato.grande.sem-foto { font-size: 26px; }
+  .heroi.com-retrato { gap: 14px; }
 }

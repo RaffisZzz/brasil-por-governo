@@ -2,7 +2,8 @@
 -- {curado} é preenchido por etl/build_warehouse.py.
 
 CREATE OR REPLACE TABLE dim_governo AS
-SELECT id, presidente, inicio, fim, em_curso, periodo_historico, coalesce(observacao, '') AS observacao, ordem
+SELECT id, presidente, inicio, fim, em_curso, periodo_historico, coalesce(observacao, '') AS observacao,
+       partido, wikipedia, ordem
 FROM read_parquet('{curado}/governos/*.parquet');
 
 CREATE OR REPLACE TABLE fato_mensal AS

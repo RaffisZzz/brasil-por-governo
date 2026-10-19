@@ -25,8 +25,16 @@ const duracao = (dias) => {
 const anoDe = (iso) => iso.slice(0, 4);
 // O fim é o dia da posse do sucessor; o último ano no cargo é o do dia anterior.
 const anoFim = (g) => (g.em_curso ? "atual" : String(new Date(Date.parse(g.fim) - 864e5).getUTCFullYear()));
-const anos = (g) => `${anoDe(g.inicio)}–${anoFim(g)}`;
-const rotulo = (g) => (g.presidente.includes("(") ? g.presidente : `${g.presidente} (${anos(g)})`);
+const anos = (g) => (anoDe(g.inicio) === anoFim(g) ? anoDe(g.inicio) : `${anoDe(g.inicio)}–${anoFim(g)}`);
+// Nomes como "Lula (2003–2010)" já trazem os anos no CSV; aqui ficam só com o nome.
+const nome = (g) => g.presidente.replace(/ \(.*\)$/, "");
+const rotulo = (g) => `${nome(g)} (${anos(g)})`;
+const iniciais = (g) => nome(g).split(" ").filter((p) => p.length > 2 && p[0] === p[0].toUpperCase()).slice(0, 2).map((p) => p[0]).join("");
+// Foto da Wikipédia (etl/fotos.py) ou, se não houver, um círculo com as iniciais.
+function retrato(g, classe = "") {
+  if (g.foto) return el("img", { class: `retrato ${classe}`, src: g.foto, alt: `Foto de ${nome(g)}`, loading: "lazy" });
+  return el("span", { class: `retrato sem-foto ${classe}`, "aria-hidden": "true" }, iniciais(g));
+}
 
 // ---------- utilidades ----------
 const cor = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
@@ -116,9 +124,19 @@ function desenhar(container, id, opcoes, altura = 260) {
   const div = el("div", { id, class: "grafico", role: "img" });
   div.style.height = `${altura}px`;
   container.append(div);
-  const g = echarts.init(div, null, { renderer: "svg" });
-  g.setOption(opcoes());
-  graficos.set(id, { g, opcoes });
+  if (typeof echarts === "undefined") {
+    div.replaceChildren(el("p", { class: "explica" }, "Não foi possível carregar a biblioteca de gráficos. Recarregue a página."));
+    return;
+  }
+  // Um gráfico com problema não pode impedir que os outros sejam desenhados.
+  try {
+    const g = echarts.init(div, null, { renderer: "svg" });
+    g.setOption(opcoes());
+    graficos.set(id, { g, opcoes });
+  } catch (erro) {
+    console.error(`Gráfico ${id}:`, erro);
+    div.replaceChildren(el("p", { class: "explica" }, "Não foi possível desenhar este gráfico."));
+  }
 }
 function limparGraficos(prefixo) {
   for (const [id, { g }] of graficos) {
@@ -246,7 +264,7 @@ function montarLinhaTempo() {
     el("span", { class: "era-nome" }, era.nome),
     el("div", { class: "era-chips" }, era.gs.map((g) =>
       el("button", { class: "chip", type: "button", "data-id": g.id, "aria-pressed": "false", onclick: () => (location.hash = `#/governo/${g.id}`) },
-        g.presidente.replace(/ \(.*\)$/, ""), el("span", { class: "ano" }, anoDe(g.inicio))))))));
+        nome(g), el("span", { class: "ano" }, anos(g))))))));
   sel.replaceChildren(...eras.map((era) => el("optgroup", { label: era.nome },
     era.gs.map((g) => el("option", { value: g.id }, rotulo(g))))));
   sel.addEventListener("change", () => (location.hash = `#/governo/${sel.value}`));
@@ -278,7 +296,12 @@ function mostrarGoverno(id) {
   });
   document.getElementById("sel-governo").value = g.id;
   document.getElementById("g-periodo").textContent = g.periodo_historico;
-  document.getElementById("g-nome").textContent = g.presidente;
+  document.getElementById("g-retrato").replaceChildren(retrato(g, "grande"));
+  document.getElementById("g-nome").replaceChildren(nome(g), " ", el("span", { class: "anos-titulo" }, anos(g)));
+  document.getElementById("g-partido").textContent = g.partido ? `Partido: ${g.partido}` : "";
+  const credito = document.getElementById("g-credito");
+  credito.hidden = !g.foto;
+  if (g.foto) credito.replaceChildren("Foto: ", el("a", { href: g.pagina, target: "_blank", rel: "noopener" }, "Wikipédia"));
   document.getElementById("g-datas").textContent =
     `${dataLonga(g.inicio)} a ${g.em_curso ? "hoje" : dataLonga(g.fim)} · ${duracao(g.dias)}${g.em_curso ? " até agora" : ""}`;
   document.getElementById("g-obs").textContent = g.observacao;
@@ -359,12 +382,27 @@ function mostrarComparar(idA, idB) {
     if (!m) return el("td", { class: "num vazio-celula" }, "sem dados");
     return el("td", { class: "num" }, cfg.principal(m), el("span", { class: "sub" }, cfg.sub(m)));
   };
+  // Terceira coluna: qual dos dois números do cartão é maior e por quanto (em pontos percentuais,
+  // porque todos os números comparados são taxas ou variações em %). Maior não quer dizer melhor.
+  const maior = (cfg) => {
+    const ma = metrica(ga.id, cfg.ind), mb = metrica(gb.id, cfg.ind);
+    const va = ma && cfg.numero(ma), vb = mb && cfg.numero(mb);
+    if (va == null || vb == null) return el("td", { class: "maior vazio-celula" }, "–");
+    const dif = Math.abs(va - vb);
+    if (dif < 0.05) return el("td", { class: "maior" }, "Empate");
+    const [g, lado] = va > vb ? [ga, "a"] : [gb, "b"];
+    return el("td", { class: "maior" },
+      el("span", { class: "vencedor" }, el("i", { class: `ponto ${lado}`, "aria-hidden": "true" }), nome(g)),
+      el("span", { class: "sub" }, `${fmt(dif)} p.p. a mais`));
+  };
+  const cabeca = (g, lado) => el("th", { class: `num ${lado}` },
+    el("span", { class: "cabeca-governo" }, retrato(g, "mini"), el("span", {}, nome(g),
+      el("span", { class: "sub" }, `${periodo(g)}${g.partido ? ` · ${g.partido}` : ""}`))));
   document.getElementById("tab-comparar").replaceChildren(
     el("thead", {}, el("tr", {},
-      el("th", {}, "Indicador"),
-      el("th", { class: "num a" }, ga.presidente, el("span", { class: "sub" }, periodo(ga))),
-      el("th", { class: "num b" }, gb.presidente, el("span", { class: "sub" }, periodo(gb))))),
-    el("tbody", {}, CARTOES.map((cfg) => el("tr", {}, el("td", {}, cfg.rotulo), celula(cfg, ga.id), celula(cfg, gb.id)))));
+      el("th", {}, "Indicador"), cabeca(ga, "a"), cabeca(gb, "b"),
+      el("th", { class: "maior" }, "Maior número", el("span", { class: "sub" }, "e a diferença")))),
+    el("tbody", {}, CARTOES.map((cfg) => el("tr", {}, el("td", {}, cfg.rotulo), celula(cfg, ga.id), celula(cfg, gb.id), maior(cfg)))));
 
   document.getElementById("c-eventos").replaceChildren(...[[ga, "a"], [gb, "b"]].map(([g, lado]) => {
     const ev = eventosDe(g.id);
@@ -458,7 +496,7 @@ function mostrarTodos() {
       el("th", { "aria-sort": sortAttr(-1), onclick: ordenar(-1) }, "Governo"),
       COLUNAS_TODOS.map((c, i) => el("th", { class: "num", "aria-sort": sortAttr(i), onclick: ordenar(i) }, c.titulo)))),
     el("tbody", {}, linhas.map(({ g, vals }) => el("tr", { onclick: () => (location.hash = `#/governo/${g.id}`) },
-      el("td", {}, g.presidente, el("span", { class: "sub" }, anos(g))),
+      el("td", {}, nome(g), el("span", { class: "sub" }, [anos(g), g.partido].filter(Boolean).join(" · "))),
       vals.map((v, i) => el("td", { class: `num${v == null ? " vazio-celula" : ""}` }, v == null ? "–" : COLUNAS_TODOS[i].f(v)))))));
 }
 
