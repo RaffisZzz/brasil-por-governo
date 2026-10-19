@@ -132,15 +132,19 @@ function desenhar(container, id, opcoes, altura = 260) {
   try {
     const g = echarts.init(div, null, { renderer: "svg" });
     g.setOption(opcoes());
-    graficos.set(id, { g, opcoes });
+    // O cartão muda de largura quando os seguintes entram na grade (o primeiro nasce
+    // ocupando a linha inteira); sem isto o gráfico guarda a largura inicial e invade o vizinho.
+    const obs = new ResizeObserver(() => g.resize());
+    obs.observe(div);
+    graficos.set(id, { g, opcoes, obs });
   } catch (erro) {
     console.error(`Gráfico ${id}:`, erro);
     div.replaceChildren(el("p", { class: "explica" }, "Não foi possível desenhar este gráfico."));
   }
 }
 function limparGraficos(prefixo) {
-  for (const [id, { g }] of graficos) {
-    if (id.startsWith(prefixo)) { g.dispose(); graficos.delete(id); }
+  for (const [id, { g, obs }] of graficos) {
+    if (id.startsWith(prefixo)) { obs.disconnect(); g.dispose(); graficos.delete(id); }
   }
 }
 const eixo = () => ({

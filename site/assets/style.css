@@ -171,7 +171,7 @@ select {
 }
 .cartao h2 { margin: 0 0 2px; font-size: 17px; }
 .cartao .explica { margin: 0 0 8px; color: var(--text-secondary); font-size: 13.5px; }
-.grafico { width: 100%; height: 260px; }
+.grafico { width: 100%; height: 260px; overflow: hidden; }
 .legenda { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--text-secondary); margin-bottom: 4px; }
 .legenda span { display: inline-flex; align-items: center; gap: 6px; }
 .legenda i { width: 14px; height: 3px; border-radius: 2px; display: inline-block; }
@@ -194,9 +194,16 @@ select {
 .tabela .sub { display: block; color: var(--text-muted); font-size: 12.5px; }
 .tabela.comparar th.a { color: var(--serie-a); }
 .tabela.comparar th.b { color: var(--serie-b); }
-.cabeca-governo { display: inline-flex; align-items: center; gap: 10px; text-align: left; }
+/* Comparar: colunas de mesma largura, tudo centralizado menos o nome do indicador. */
+.tabela.comparar { table-layout: fixed; min-width: 640px; }
+.tabela.comparar th:first-child { width: 22%; }
+.tabela.comparar th, .tabela.comparar td { text-align: center; vertical-align: middle; }
+.tabela.comparar th { vertical-align: top; }
+.tabela.comparar th:first-child, .tabela.comparar td:first-child { text-align: left; }
+.tabela.comparar .num { white-space: normal; }
+.cabeca-governo { display: inline-flex; flex-direction: column; align-items: center; gap: 6px; }
 .tabela .maior { white-space: nowrap; }
-.vencedor { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+.vencedor { display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-weight: 600; }
 .ponto { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
 .ponto.a { background: var(--serie-a); }
 .ponto.b { background: var(--serie-b); }
