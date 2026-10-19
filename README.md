@@ -24,7 +24,8 @@ dados/governos.csv ─────────► transform_spark.py (PySpark) d
 
 | Pasta | O que tem |
 | --- | --- |
-| `dados/governos.csv` | Linha do tempo dos governos, mantida à mão |
+| `dados/governos.csv` | Linha do tempo dos governos, mantida à mão, com partido e página da Wikipédia de cada presidente |
+| `etl/fotos.py` | Busca na Wikipédia a foto de cada presidente; sem resposta, o site mostra as iniciais |
 | `dados/acontecimentos.csv` | Acontecimentos marcantes de cada governo (lista editorial; o pipeline confere se cada data cai dentro do mandato) |
 | `etl/` | Coleta (Python), transformação (PySpark), warehouse e exportação |
 | `sql/` | Modelo do warehouse e consultas de exportação (DuckDB) |
@@ -53,5 +54,6 @@ O workflow `.github/workflows/pipeline.yml` roda a cada push na `main`, todo dia
 
 ## Fontes
 
+- Fotos dos presidentes: [Wikipédia](https://pt.wikipedia.org), hospedadas na Wikimedia Commons; cada foto tem link para a página de origem.
 - [Ipeadata](http://www.ipeadata.gov.br), que republica numa API aberta as séries do Banco Central (dólar, Selic, dívida, reservas), do IBGE (PIB, IPCA, PNAD Contínua) e do Ministério do Trabalho (salário mínimo). Os códigos das séries estão em `etl/config.py`.
 - A API do SGS do Banco Central seria a fonte direta, mas recusa conexões de servidores fora do Brasil, como os do GitHub Actions.

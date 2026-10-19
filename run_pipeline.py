@@ -26,7 +26,8 @@ def main() -> None:
     args = p.parse_args()
     shutil.rmtree(BRUTO, ignore_errors=True)  # amostra e dados reais nunca se misturam
     primeira = "scripts/gerar_amostra.py" if args.amostra else "etl/ingest_ipea.py"
-    for script in [primeira] + ETAPAS_COMUNS:
+    etapas = [primeira] + ([] if args.amostra else ["etl/fotos.py"]) + ETAPAS_COMUNS
+    for script in etapas:
         rodar(script)
 
 

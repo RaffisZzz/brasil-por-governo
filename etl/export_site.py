@@ -7,7 +7,7 @@ from datetime import date
 
 import duckdb
 
-from config import DADOS, INDICADORES, MARCA_AMOSTRA, RAIZ, SITE_DADOS, WAREHOUSE
+from config import BRUTO, DADOS, INDICADORES, MARCA_AMOSTRA, RAIZ, SITE_DADOS, WAREHOUSE
 
 
 def gravar_json(nome: str, conteudo) -> None:
@@ -36,7 +36,11 @@ def main() -> None:
     }
     metricas = tabelas["metricas"].astype(object).where(tabelas["metricas"].notna(), None)
 
-    gravar_json("governos", tabelas["governos"].to_dict(orient="records"))
+    # Fotos da Wikipédia (etl/fotos.py); ausentes na amostra sintética ou se a API falhar.
+    arq_fotos = BRUTO / "fotos.json"
+    fotos = json.loads(arq_fotos.read_text(encoding="utf-8")) if arq_fotos.exists() else {}
+    governos = [{**g, **fotos.get(g["id"], {})} for g in tabelas["governos"].to_dict(orient="records")]
+    gravar_json("governos", governos)
     gravar_json("acontecimentos", tabelas["acontecimentos"].to_dict(orient="records"))
     gravar_json("metricas", metricas.to_dict(orient="records"))
     gravar_json("series", series)

@@ -6,7 +6,7 @@
   <title>Brasil por Governo</title>
   <meta name="description" content="Indicadores econômicos de cada governo brasileiro: PIB, inflação, dólar, juros, desemprego, dívida, salário mínimo e reservas, com dados oficiais do Banco Central e do IBGE reunidos pelo Ipeadata.">
   <link rel="stylesheet" href="assets/style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.1/echarts.min.js" defer></script>
+  <script src="assets/vendor/echarts.min.js" defer></script><!-- Apache ECharts 5.5.1, licença Apache 2.0 -->
   <script src="assets/app.js" defer></script>
 </head>
 <body>
@@ -34,11 +34,18 @@
         <select id="sel-governo"></select>
       </label>
 
-      <div class="heroi">
-        <p class="etiqueta" id="g-periodo"></p>
-        <h1 id="g-nome"></h1>
-        <p class="datas" id="g-datas"></p>
-        <p class="obs" id="g-obs"></p>
+      <div class="heroi com-retrato">
+        <figure class="moldura">
+          <div id="g-retrato"></div>
+          <figcaption class="credito" id="g-credito" hidden></figcaption>
+        </figure>
+        <div>
+          <p class="etiqueta" id="g-periodo"></p>
+          <h1 id="g-nome"></h1>
+          <p class="datas" id="g-datas"></p>
+          <p class="partido" id="g-partido"></p>
+          <p class="obs" id="g-obs"></p>
+        </div>
       </div>
 
       <div class="kpis" id="g-kpis"></div>
@@ -63,7 +70,8 @@
         <label class="sel-b">Governo B <select id="sel-b"></select></label>
       </div>
       <div class="cartao">
-        <table class="tabela comparar" id="tab-comparar"></table>
+        <div class="rolagem"><table class="tabela comparar" id="tab-comparar"></table></div>
+        <p class="nota-cobertura">A última coluna diz qual número é maior, não qual é melhor: inflação ou desemprego maiores, por exemplo, não são bons sinais. A diferença está em pontos percentuais (p.p.).</p>
       </div>
       <div class="eventos-comparar" id="c-eventos"></div>
       <div class="graficos" id="c-graficos"></div>
