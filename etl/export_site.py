@@ -42,6 +42,7 @@ def main() -> None:
     governos = [{**g, **fotos.get(g["id"], {})} for g in tabelas["governos"].to_dict(orient="records")]
     gravar_json("governos", governos)
     gravar_json("acontecimentos", tabelas["acontecimentos"].to_dict(orient="records"))
+    gravar_json("polemicas", tabelas["polemicas"].to_dict(orient="records"))
     gravar_json("metricas", metricas.to_dict(orient="records"))
     gravar_json("series", series)
     gravar_json("pib", tabelas["pib"].astype(object).where(tabelas["pib"].notna(), None).values.tolist())

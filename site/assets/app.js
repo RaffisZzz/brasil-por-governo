@@ -57,8 +57,9 @@ function listaEventos(eventos) {
   return eventos.map((e) => el("li", { class: "evento" },
     el("span", { class: "evento-data" }, dataEvento(e)),
     el("div", {},
-      el("span", { class: "evento-titulo" }, e.titulo), el("span", { class: "tag" }, e.categoria),
-      el("p", { class: "evento-desc" }, e.descricao))));
+      el("span", { class: "evento-titulo" }, e.titulo), e.categoria ? el("span", { class: "tag" }, e.categoria) : null,
+      el("p", { class: "evento-desc" }, e.descricao),
+      e.desfecho ? el("p", { class: "evento-desfecho" }, el("strong", {}, "Desfecho: "), e.desfecho) : null)));
 }
 const metrica = (gid, ind) => D.metricas.find((m) => m.governo_id === gid && m.indicador === ind);
 
@@ -320,6 +321,9 @@ function mostrarGoverno(id) {
   const eventos = eventosDe(g.id);
   document.getElementById("g-eventos-cartao").hidden = !eventos.length;
   document.getElementById("g-eventos").replaceChildren(...listaEventos(eventos));
+  const polemicas = D.polemicas.filter((p) => p.governo_id === g.id);
+  document.getElementById("g-polemicas-cartao").hidden = !polemicas.length;
+  document.getElementById("g-polemicas").replaceChildren(...listaEventos(polemicas));
 
   limparGraficos("g-");
   const destino = document.getElementById("g-graficos");
@@ -525,7 +529,7 @@ function rotear() {
 }
 
 async function main() {
-  const nomes = ["governos", "acontecimentos", "metricas", "series", "pib", "indicadores", "meta"];
+  const nomes = ["governos", "acontecimentos", "polemicas", "metricas", "series", "pib", "indicadores", "meta"];
   const dados = await Promise.all(nomes.map((n) => fetch(`data/${n}.json`).then((r) => r.json())));
   nomes.forEach((n, i) => (D[n] = dados[i]));
 

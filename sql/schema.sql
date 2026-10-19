@@ -18,6 +18,10 @@ CREATE OR REPLACE TABLE fato_acontecimento AS
 SELECT governo_id, data, precisao, categoria, titulo, descricao
 FROM read_parquet('{curado}/acontecimentos/*.parquet');
 
+CREATE OR REPLACE TABLE fato_polemica AS
+SELECT governo_id, data, precisao, titulo, descricao, coalesce(desfecho, '') AS desfecho
+FROM read_parquet('{curado}/polemicas/*.parquet');
+
 -- Número-índice de preços: produto acumulado das variações mensais do IPCA.
 CREATE OR REPLACE VIEW vw_indice_ipca AS
 SELECT mes, exp(sum(ln(1 + valor / 100)) OVER (ORDER BY mes)) AS indice
