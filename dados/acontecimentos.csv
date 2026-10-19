@@ -1,0 +1,90 @@
+governo_id,data,precisao,categoria,titulo,descricao
+deodoro,1889-11-15,dia,Política,Proclamação da República,Fim do Império e início do governo provisório republicano.
+deodoro,1890-06-01,ano,Economia,Encilhamento,Expansão do crédito e da emissão de moeda leva a uma bolha especulativa na bolsa e a uma crise em 1891.
+deodoro,1891-02-24,dia,Política,Primeira Constituição republicana,Promulgada a Constituição de 1891: federalismo e presidencialismo.
+floriano,1893-02-01,mes,Política,Revolução Federalista,Guerra civil no Sul do país entre federalistas e republicanos.
+floriano,1893-09-06,dia,Política,Revolta da Armada,Unidades da Marinha se rebelam contra o governo no Rio de Janeiro.
+prudente,1897-10-05,dia,Sociedade,Fim da Guerra de Canudos,Termina o conflito no sertão da Bahia com a destruição do arraial.
+rodrigues-alves,1903-11-17,dia,Política,Tratado de Petrópolis,O Acre passa a fazer parte do Brasil após acordo com a Bolívia.
+rodrigues-alves,1904-11-10,dia,Sociedade,Revolta da Vacina,Protestos no Rio de Janeiro contra a vacinação obrigatória contra a varíola.
+hermes,1910-11-22,dia,Sociedade,Revolta da Chibata,Marinheiros se rebelam contra os castigos físicos na Marinha.
+hermes,1912-10-01,mes,Sociedade,Guerra do Contestado,Início do conflito armado na divisa entre Paraná e Santa Catarina.
+venceslau,1917-07-01,mes,Sociedade,Greve geral de 1917,Paralisação de trabalhadores em São Paulo que se espalha por outras cidades.
+venceslau,1917-10-26,dia,Internacional,Brasil entra na Primeira Guerra,O país declara guerra à Alemanha.
+venceslau,1918-10-01,mes,Sociedade,Gripe espanhola,A pandemia chega ao auge no Brasil.
+epitacio,1922-02-13,dia,Sociedade,Semana de Arte Moderna,Evento em São Paulo marca o início do modernismo brasileiro.
+epitacio,1922-07-05,dia,Política,Revolta dos 18 do Forte,Primeiro levante tenentista no Forte de Copacabana.
+bernardes,1924-07-05,dia,Política,Revolta Paulista de 1924,Levante tenentista ocupa São Paulo por três semanas.
+bernardes,1925-06-01,ano,Política,Coluna Prestes,Movimento tenentista percorre o interior do país até 1927.
+washington-luis,1929-10-24,dia,Economia,Quebra da Bolsa de Nova York,A crise mundial derruba o preço do café e as exportações brasileiras.
+washington-luis,1930-10-03,dia,Política,Revolução de 1930,Movimento armado que leva Getúlio Vargas ao poder.
+vargas-1,1932-07-09,dia,Política,Revolução Constitucionalista,São Paulo se levanta contra o governo provisório.
+vargas-1,1934-07-16,dia,Política,Constituição de 1934,Nova Constituição institui o voto secreto e o voto feminino.
+vargas-1,1937-11-10,dia,Política,Estado Novo,Golpe instala um regime autoritário até 1945.
+vargas-1,1940-05-01,dia,Economia,Criação do salário mínimo,Decreto fixa os primeiros valores de salário mínimo por região.
+vargas-1,1941-04-09,dia,Economia,Criação da CSN,Fundada a Companhia Siderúrgica Nacional.
+vargas-1,1942-08-22,dia,Internacional,Brasil entra na Segunda Guerra,O país declara guerra ao Eixo.
+vargas-1,1943-05-01,dia,Economia,CLT,Consolidação das Leis do Trabalho reúne a legislação trabalhista.
+dutra,1946-09-18,dia,Política,Constituição de 1946,Nova Constituição restabelece a democracia.
+vargas-2,1953-10-03,dia,Economia,Criação da Petrobras,Lei cria a estatal e o monopólio do petróleo.
+vargas-2,1954-08-24,dia,Política,Morte de Getúlio Vargas,O presidente se suicida no Palácio do Catete.
+jk,1956-06-01,ano,Economia,Plano de Metas,"Programa de investimentos em energia, transporte e indústria."
+jk,1960-04-21,dia,Política,Inauguração de Brasília,A capital é transferida do Rio de Janeiro para Brasília.
+janio,1961-08-25,dia,Política,Renúncia de Jânio Quadros,O presidente renuncia após sete meses de mandato.
+jango,1963-01-06,dia,Política,Plebiscito restaura o presidencialismo,Eleitores rejeitam o parlamentarismo adotado em 1961.
+jango,1964-03-31,dia,Política,Golpe de 1964,Militares depõem o presidente e iniciam o regime militar.
+castelo-branco,1964-12-31,dia,Economia,Criação do Banco Central,Lei da reforma bancária cria o Banco Central do Brasil.
+castelo-branco,1965-10-27,dia,Política,AI-2,Ato institucional extingue os partidos e institui o bipartidarismo.
+castelo-branco,1967-01-24,dia,Política,Constituição de 1967,Nova Constituição concentra poderes no Executivo.
+costa-e-silva,1968-12-13,dia,Política,AI-5,Ato institucional fecha o Congresso e suspende garantias individuais.
+medici,1970-06-01,ano,Economia,Milagre econômico,Período de 1968 a 1973 com crescimento do PIB acima de 10% ao ano.
+medici,1970-06-21,dia,Sociedade,Tricampeonato na Copa,O Brasil vence a Copa do Mundo do México.
+medici,1973-10-01,mes,Economia,Primeiro choque do petróleo,O preço do petróleo quadruplica e encarece as importações.
+geisel,1974-06-01,ano,Economia,II PND,Plano de investimentos em energia e indústria de base financiado por dívida externa.
+geisel,1975-10-25,dia,Política,Morte de Vladimir Herzog,O jornalista morre sob custódia do DOI-Codi em São Paulo.
+geisel,1978-10-13,dia,Política,Revogação do AI-5,Emenda constitucional revoga o AI-5 a partir de 1979.
+figueiredo,1979-08-28,dia,Política,Lei da Anistia,Anistia a presos e exilados políticos e a agentes do Estado.
+figueiredo,1979-06-01,ano,Economia,Segundo choque do petróleo,Nova alta do petróleo e dos juros internacionais pressiona a dívida externa.
+figueiredo,1982-06-01,ano,Economia,Crise da dívida externa,O Brasil recorre ao FMI após a moratória do México.
+figueiredo,1984-04-25,dia,Política,Diretas Já,A Câmara rejeita a emenda que previa eleição direta para presidente.
+figueiredo,1985-01-15,dia,Política,Eleição de Tancredo Neves,O Colégio Eleitoral escolhe o primeiro presidente civil desde 1964.
+sarney,1986-02-28,dia,Economia,Plano Cruzado,Congelamento de preços e troca do cruzeiro pelo cruzado.
+sarney,1987-02-20,dia,Economia,Moratória da dívida externa,O governo suspende o pagamento de juros aos bancos estrangeiros.
+sarney,1988-10-05,dia,Política,Constituição de 1988,Promulgada a Constituição em vigor até hoje.
+sarney,1989-11-15,dia,Política,Primeira eleição direta desde 1960,Eleitores voltam a escolher o presidente pelo voto direto.
+collor,1990-03-16,dia,Economia,Plano Collor,Bloqueio das cadernetas de poupança e contas acima de um limite.
+collor,1992-06-03,dia,Internacional,Eco-92,Conferência da ONU sobre meio ambiente no Rio de Janeiro.
+collor,1992-09-29,dia,Política,Câmara aprova o impeachment de Collor,O presidente é afastado e o vice Itamar Franco assume.
+itamar,1993-04-21,dia,Política,Plebiscito sobre forma de governo,Eleitores mantêm a república presidencialista.
+itamar,1994-07-01,dia,Economia,Plano Real,O real entra em circulação e a inflação cai.
+fhc,1997-06-04,dia,Política,Emenda da reeleição,"Presidente, governadores e prefeitos passam a poder disputar a reeleição."
+fhc,1998-07-29,dia,Economia,Privatização da Telebrás,Venda do sistema estatal de telecomunicações.
+fhc,1999-01-01,mes,Economia,Câmbio flutuante,O Banco Central deixa o real flutuar e o dólar dispara.
+fhc,1999-06-21,dia,Economia,Regime de metas de inflação,Decreto institui as metas de inflação.
+fhc,2000-05-04,dia,Economia,Lei de Responsabilidade Fiscal,"Lei fixa limites para gastos e dívidas de União, estados e municípios."
+fhc,2001-06-01,mes,Economia,Racionamento de energia,Crise hídrica leva ao racionamento de eletricidade.
+lula-1,2003-10-20,dia,Sociedade,Criação do Bolsa Família,Programa unifica transferências de renda para famílias pobres.
+lula-1,2005-06-01,mes,Política,Escândalo do mensalão,Denúncias de pagamentos a parlamentares abrem crise política.
+lula-1,2005-12-01,mes,Economia,Quitação da dívida com o FMI,O governo antecipa o pagamento do empréstimo do FMI.
+lula-1,2007-11-01,mes,Economia,Descoberta do pré-sal,Petrobras anuncia grandes reservas de petróleo em águas profundas.
+lula-1,2008-04-30,dia,Economia,Grau de investimento,O Brasil recebe pela primeira vez o grau de investimento.
+lula-1,2008-09-15,dia,Internacional,Crise financeira global,A quebra do Lehman Brothers inicia a crise mundial.
+dilma,2013-06-01,mes,Sociedade,Protestos de junho de 2013,Manifestações em todo o país começam contra o aumento das passagens.
+dilma,2014-03-17,dia,Política,Operação Lava Jato,Começa a investigação sobre corrupção na Petrobras.
+dilma,2014-06-12,dia,Sociedade,Copa do Mundo no Brasil,O país sedia a Copa do Mundo.
+dilma,2015-06-01,ano,Economia,Recessão de 2015 e 2016,O PIB cai em dois anos seguidos.
+dilma,2016-04-17,dia,Política,Câmara aprova o impeachment de Dilma,O processo segue para o Senado e a presidente é afastada em maio.
+temer,2016-08-05,dia,Sociedade,Olimpíada do Rio,O Rio de Janeiro sedia os Jogos Olímpicos.
+temer,2016-08-31,dia,Política,Senado conclui o impeachment,Dilma Rousseff é destituída e Michel Temer é efetivado.
+temer,2016-12-15,dia,Economia,Teto de gastos,Emenda constitucional limita o crescimento das despesas federais.
+temer,2017-07-13,dia,Economia,Reforma trabalhista,Lei altera regras da CLT sobre contratos e negociação coletiva.
+temer,2018-05-21,dia,Economia,Greve dos caminhoneiros,Paralisação bloqueia estradas e causa desabastecimento.
+bolsonaro,2019-11-12,dia,Economia,Reforma da Previdência,Emenda muda as regras de aposentadoria.
+bolsonaro,2020-02-26,dia,Sociedade,Pandemia de covid-19,Confirmado o primeiro caso no Brasil.
+bolsonaro,2020-04-02,dia,Economia,Auxílio emergencial,Pagamento de renda a trabalhadores informais durante a pandemia.
+bolsonaro,2021-01-17,dia,Sociedade,Início da vacinação contra a covid-19,Primeira dose aplicada no país.
+bolsonaro,2021-02-24,dia,Economia,Autonomia do Banco Central,Lei fixa mandatos para a diretoria do Banco Central.
+lula-3,2023-01-08,dia,Política,Ataques de 8 de janeiro,Sedes dos Três Poderes são invadidas e depredadas em Brasília.
+lula-3,2023-08-30,dia,Economia,Novo arcabouço fiscal,Lei substitui o teto de gastos por novas regras fiscais.
+lula-3,2023-12-20,dia,Economia,Reforma tributária,Emenda unifica impostos sobre o consumo.
+lula-3,2024-05-01,mes,Sociedade,Enchentes no Rio Grande do Sul,Chuvas extremas atingem a maior parte dos municípios gaúchos.
