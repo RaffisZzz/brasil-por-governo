@@ -61,7 +61,7 @@ function listaEventos(eventos) {
       el("span", { class: "evento-titulo" }, e.titulo), e.categoria ? el("span", { class: "tag" }, e.categoria) : null,
       el("p", { class: "evento-desc" }, e.descricao),
       e.link ? el("a", { class: "evento-fonte", href: e.link, target: "_blank", rel: "noopener noreferrer" },
-        `Ler a notícia${e.fonte ? ` (${e.fonte})` : ""} ↗`) : null)));
+        `Ver a fonte${e.fonte ? `: ${e.fonte}` : ""} ↗`) : null)));
 }
 const metrica = (gid, ind) => D.metricas.find((m) => m.governo_id === gid && m.indicador === ind);
 
