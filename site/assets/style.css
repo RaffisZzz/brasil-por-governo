@@ -157,6 +157,19 @@ select {
 .kpi-valor { font-size: 30px; font-weight: 680; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .kpi-sub { color: var(--text-secondary); font-size: 14px; font-variant-numeric: tabular-nums; }
 .kpi-nota { color: var(--text-muted); font-size: 12.5px; margin-top: auto; padding-top: 6px; }
+.kpi-topo { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.kpi.melhorou { border-color: color-mix(in srgb, var(--positivo) 45%, var(--borda)); }
+.kpi.piorou { border-color: color-mix(in srgb, var(--negativo) 45%, var(--borda)); }
+.kpi.melhorou .kpi-valor, .tabela td.melhorou .valor { color: var(--positivo); }
+.kpi.piorou .kpi-valor, .tabela td.piorou .valor { color: var(--negativo); }
+.selo {
+  flex: none; display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 600;
+  white-space: nowrap; border: 1px solid currentColor;
+}
+.selo.melhorou { color: var(--positivo); background: color-mix(in srgb, var(--positivo) 10%, transparent); }
+.selo.piorou { color: var(--negativo); background: color-mix(in srgb, var(--negativo) 10%, transparent); }
+.tabela td .selo { margin: 3px 0 1px; }
+.tabela td .valor { display: block; font-weight: 600; }
 .kpi.vazio .kpi-valor { color: var(--text-muted); font-size: 22px; font-weight: 500; }
 .nota-cobertura { color: var(--text-muted); font-size: 13px; margin: 10px 0 0; }
 
