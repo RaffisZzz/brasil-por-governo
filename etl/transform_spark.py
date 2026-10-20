@@ -5,12 +5,11 @@ Saídas em data/curated/:
 - serie_anual:  séries anuais (PIB e indicadores sociais), cada ano atribuído ao governo que ocupou mais dias dele
 - governos:     a tabela de governos, com o fim em aberto preenchido com a data de hoje
 - acontecimentos: fatos marcantes, conferidos contra as datas do mandato a que pertencem
-- polemicas:      controvérsias de cada governo, com o desfecho quando houve
 """
 from pyspark.sql import SparkSession, DataFrame, Window
 from pyspark.sql import functions as F
 
-from config import ACONTECIMENTOS_CSV, BRUTO, POLEMICAS_CSV, CURADO, GOVERNOS_CSV, INDICADORES
+from config import ACONTECIMENTOS_CSV, BRUTO, CURADO, GOVERNOS_CSV, INDICADORES
 
 
 def ler_governos(spark: SparkSession) -> DataFrame:
@@ -90,7 +89,7 @@ def anual_por_governo(series: DataFrame, governos: DataFrame) -> DataFrame:
 
 
 def ler_fatos(spark: SparkSession, governos: DataFrame, arquivo) -> DataFrame:
-    """Lê acontecimentos ou polêmicas e confere se cada data cai dentro do mandato indicado."""
+    """Lê os acontecimentos e confere se cada data cai dentro do mandato indicado."""
     eventos = (
         spark.read.option("header", True).option("encoding", "UTF-8").option("quote", '"').option("escape", '"')
         .csv(str(arquivo))
@@ -123,7 +122,6 @@ def main() -> None:
         "serie_mensal": atribuir_governo_mensal(com_ipca_12m(para_mensal(series)), governos),
         "serie_anual": anual_por_governo(series, governos),
         "acontecimentos": ler_fatos(spark, governos, ACONTECIMENTOS_CSV),
-        "polemicas": ler_fatos(spark, governos, POLEMICAS_CSV),
     }
     for nome, df in saidas.items():
         df.coalesce(1).write.mode("overwrite").parquet(str(CURADO / nome))

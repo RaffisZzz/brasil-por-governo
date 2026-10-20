@@ -19,12 +19,8 @@ CREATE OR REPLACE VIEW fato_pib AS
 SELECT ano, valor AS crescimento, governo_id FROM fato_anual WHERE indicador = 'pib';
 
 CREATE OR REPLACE TABLE fato_acontecimento AS
-SELECT governo_id, data, precisao, categoria, titulo, descricao
+SELECT governo_id, data, precisao, categoria, titulo, descricao, coalesce(fonte, '') AS fonte, coalesce(link, '') AS link
 FROM read_parquet('{curado}/acontecimentos/*.parquet');
-
-CREATE OR REPLACE TABLE fato_polemica AS
-SELECT governo_id, data, precisao, titulo, descricao, coalesce(desfecho, '') AS desfecho
-FROM read_parquet('{curado}/polemicas/*.parquet');
 
 -- Número-índice de preços: produto acumulado das variações mensais do IPCA.
 CREATE OR REPLACE VIEW vw_indice_ipca AS
