@@ -1,6 +1,6 @@
 """Roda o pipeline completo, etapa por etapa.
 
-    python run_pipeline.py              # dados reais (Ipeadata)
+    python run_pipeline.py              # dados reais (Ipeadata e Banco Mundial)
     python run_pipeline.py --amostra    # dados sintéticos, sem internet (só para testar)
 """
 import argparse
@@ -25,8 +25,8 @@ def main() -> None:
     p.add_argument("--amostra", action="store_true", help="usa dados sintéticos")
     args = p.parse_args()
     shutil.rmtree(BRUTO, ignore_errors=True)  # amostra e dados reais nunca se misturam
-    primeira = "scripts/gerar_amostra.py" if args.amostra else "etl/ingest_ipea.py"
-    etapas = [primeira] + ([] if args.amostra else ["etl/fotos.py"]) + ETAPAS_COMUNS
+    coleta = ["scripts/gerar_amostra.py"] if args.amostra else ["etl/ingest_ipea.py", "etl/ingest_bm.py", "etl/ingest_dieese.py", "etl/fotos.py"]
+    etapas = coleta + ETAPAS_COMUNS
     for script in etapas:
         rodar(script)
 

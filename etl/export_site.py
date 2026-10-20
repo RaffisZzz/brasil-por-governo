@@ -46,7 +46,10 @@ def main() -> None:
     gravar_json("metricas", metricas.to_dict(orient="records"))
     gravar_json("series", series)
     gravar_json("pib", tabelas["pib"].astype(object).where(tabelas["pib"].notna(), None).values.tolist())
-    gravar_json("indicadores", {k: {c: v for c, v in cfg.items() if c != "faixa"} for k, cfg in INDICADORES.items()})
+    # Fontes opcionais que falharam ficam fora do site.
+    presentes = {k: cfg for k, cfg in INDICADORES.items()
+                 if not cfg.get("opcional") or (BRUTO / "series" / f"{k}.parquet").exists()}
+    gravar_json("indicadores", {k: {c: v for c, v in cfg.items() if c != "faixa"} for k, cfg in presentes.items()})
     gravar_json("meta", {"gerado_em": date.today().isoformat(), "amostra_sintetica": MARCA_AMOSTRA.exists()})
 
 

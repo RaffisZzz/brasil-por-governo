@@ -1,8 +1,12 @@
 # Brasil por Governo
 
-Site que mostra como estavam os principais indicadores econômicos em cada governo brasileiro, de Deodoro da Fonseca até hoje, e permite comparar dois governos lado a lado.
+Site que mostra como estava o Brasil em cada governo, do dia a dia das pessoas à economia, de Deodoro da Fonseca até hoje, e permite comparar dois governos lado a lado.
 
-**Indicadores:** crescimento do PIB, inflação (IPCA), dólar, taxa Selic, desemprego, dívida líquida do setor público, salário mínimo real e reservas internacionais. Cada um aparece a partir de quando existe série oficial comparável (PIB desde 1901, inflação desde 1980, dívida desde 1991, dólar, Selic e salário mínimo desde o Plano Real, desemprego desde 2012).
+**No dia a dia:** quanto os preços subiram, salário mínimo real, renda média do trabalhador, desemprego, pobreza e extrema pobreza, acesso a saneamento básico, mortalidade infantil, expectativa de vida, homicídios e analfabetismo.
+
+**Economia:** crescimento do PIB, dólar, taxa Selic, dívida líquida do setor público e reservas internacionais.
+
+Cada indicador aparece a partir de quando existe medição oficial comparável (por exemplo: PIB desde 1901, mortalidade infantil e expectativa de vida desde 1960, inflação desde 1980, pobreza desde 1981, saneamento desde 2000, desemprego e renda desde 2012). Onde não há medição, o site mostra "Sem informação".
 
 > Os indicadores descrevem o período de cada mandato. Eles não medem quanto cada presidente foi responsável pelo resultado.
 
@@ -10,6 +14,7 @@ Site que mostra como estavam os principais indicadores econômicos em cada gover
 
 ```
 API do Ipeadata ────────► ingest_ipea.py (Python)       data/raw/series/*.parquet
+API do Banco Mundial ───► ingest_bm.py (Python)          (indicadores sociais anuais)
                                      │
 dados/governos.csv ─────────► transform_spark.py (PySpark) data/curated/
                                      │  junção por intervalo de datas: cada mês e ano ganha o seu governo
@@ -57,4 +62,5 @@ O workflow `.github/workflows/pipeline.yml` roda a cada push na `main`, todo dia
 
 - Fotos dos presidentes: [Wikipédia](https://pt.wikipedia.org), hospedadas na Wikimedia Commons; cada foto tem link para a página de origem.
 - [Ipeadata](http://www.ipeadata.gov.br), que republica numa API aberta as séries do Banco Central (dólar, Selic, dívida, reservas), do IBGE (PIB, IPCA, PNAD Contínua) e do Ministério do Trabalho (salário mínimo). Os códigos das séries estão em `etl/config.py`.
+- [Banco Mundial](https://data.worldbank.org), que reúne os indicadores sociais anuais do Brasil: pobreza e extrema pobreza (com base nas pesquisas do IBGE), saneamento (OMS/Unicef), mortalidade infantil (ONU/IGME), expectativa de vida (ONU), homicídios (UNODC) e analfabetismo (IBGE/Unesco).
 - A API do SGS do Banco Central seria a fonte direta, mas recusa conexões de servidores fora do Brasil, como os do GitHub Actions.

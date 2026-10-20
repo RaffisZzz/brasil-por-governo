@@ -2,7 +2,7 @@
 
 Saídas em data/curated/:
 - serie_mensal: indicador, mês, valor e o governo em exercício no 1º dia do mês
-- pib_anual:    crescimento do PIB por ano, atribuído ao governo que ocupou mais dias daquele ano
+- serie_anual:  séries anuais (PIB e indicadores sociais), cada ano atribuído ao governo que ocupou mais dias dele
 - governos:     a tabela de governos, com o fim em aberto preenchido com a data de hoje
 - acontecimentos: fatos marcantes, conferidos contra as datas do mandato a que pertencem
 - polemicas:      controvérsias de cada governo, com o desfecho quando houve
@@ -26,10 +26,11 @@ def ler_governos(spark: SparkSession) -> DataFrame:
 def ler_series(spark: SparkSession) -> DataFrame:
     partes = []
     for nome, cfg in INDICADORES.items():
-        if "derivado" in cfg:
+        arquivo = BRUTO / "series" / f"{nome}.parquet"
+        if "derivado" in cfg or (cfg.get("opcional") and not arquivo.exists()):
             continue
         df = (
-            spark.read.parquet(str(BRUTO / "series" / f"{nome}.parquet"))
+            spark.read.parquet(str(arquivo))
             .select(F.col("data").cast("date").alias("data"), F.col("valor").cast("double").alias("valor"))
             .where(F.col("data") >= F.lit(cfg["desde"]).cast("date"))
             .withColumn("indicador", F.lit(nome))
@@ -74,8 +75,8 @@ def atribuir_governo_mensal(mensal: DataFrame, governos: DataFrame) -> DataFrame
     )
 
 
-def pib_por_governo(series: DataFrame, governos: DataFrame, spark: SparkSession) -> DataFrame:
-    anos = series.where(F.col("indicador") == "pib").select(F.year("data").alias("ano"), "valor")
+def anual_por_governo(series: DataFrame, governos: DataFrame) -> DataFrame:
+    anos = series.where(F.col("frequencia") == "anual").select("indicador", F.year("data").alias("ano"), "valor")
     # Dias que cada governo ocupou em cada ano; o ano vai para quem tem mais dias.
     dias = (
         governos.select("id", "inicio", "fim")
@@ -85,7 +86,7 @@ def pib_por_governo(series: DataFrame, governos: DataFrame, spark: SparkSession)
     )
     w = Window.partitionBy("ano").orderBy(F.desc("dias"), "id")
     dono = dias.withColumn("rk", F.row_number().over(w)).where("rk = 1").select("ano", F.col("id").alias("governo_id"))
-    return anos.join(dono, "ano", "left").orderBy("ano")
+    return anos.join(dono, "ano", "left").orderBy("indicador", "ano")
 
 
 def ler_fatos(spark: SparkSession, governos: DataFrame, arquivo) -> DataFrame:
@@ -120,7 +121,7 @@ def main() -> None:
     saidas = {
         "governos": governos,
         "serie_mensal": atribuir_governo_mensal(com_ipca_12m(para_mensal(series)), governos),
-        "pib_anual": pib_por_governo(series, governos, spark),
+        "serie_anual": anual_por_governo(series, governos),
         "acontecimentos": ler_fatos(spark, governos, ACONTECIMENTOS_CSV),
         "polemicas": ler_fatos(spark, governos, POLEMICAS_CSV),
     }
