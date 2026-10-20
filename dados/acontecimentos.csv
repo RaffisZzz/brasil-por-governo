@@ -1,89 +1,89 @@
-governo_id,data,precisao,categoria,titulo,descricao
-deodoro,1889-11-15,dia,Política,Proclamação da República,Fim do Império e início do governo provisório republicano.
-deodoro,1890-06-01,ano,Economia,Encilhamento,Expansão do crédito e da emissão de moeda leva a uma bolha especulativa na bolsa e a uma crise em 1891.
-deodoro,1891-02-24,dia,Política,Primeira Constituição republicana,Promulgada a Constituição de 1891: federalismo e presidencialismo.
-floriano,1893-02-01,mes,Política,Revolução Federalista,Guerra civil no Sul do país entre federalistas e republicanos.
-floriano,1893-09-06,dia,Política,Revolta da Armada,Unidades da Marinha se rebelam contra o governo no Rio de Janeiro.
-prudente,1897-10-05,dia,Sociedade,Fim da Guerra de Canudos,Termina o conflito no sertão da Bahia com a destruição do arraial.
-rodrigues-alves,1903-11-17,dia,Política,Tratado de Petrópolis,O Acre passa a fazer parte do Brasil após acordo com a Bolívia.
-rodrigues-alves,1904-11-10,dia,Sociedade,Revolta da Vacina,Protestos no Rio de Janeiro contra a vacinação obrigatória contra a varíola.
-hermes,1910-11-22,dia,Sociedade,Revolta da Chibata,Marinheiros se rebelam contra os castigos físicos na Marinha.
-hermes,1912-10-01,mes,Sociedade,Guerra do Contestado,Início do conflito armado na divisa entre Paraná e Santa Catarina.
-venceslau,1917-07-01,mes,Sociedade,Greve geral de 1917,Paralisação de trabalhadores em São Paulo que se espalha por outras cidades.
-venceslau,1917-10-26,dia,Internacional,Brasil entra na Primeira Guerra,O país declara guerra à Alemanha.
-venceslau,1918-10-01,mes,Sociedade,Gripe espanhola,A pandemia chega ao auge no Brasil.
-epitacio,1922-02-13,dia,Sociedade,Semana de Arte Moderna,Evento em São Paulo marca o início do modernismo brasileiro.
-epitacio,1922-07-05,dia,Política,Revolta dos 18 do Forte,Primeiro levante tenentista no Forte de Copacabana.
-bernardes,1924-07-05,dia,Política,Revolta Paulista de 1924,Levante tenentista ocupa São Paulo por três semanas.
-bernardes,1925-06-01,ano,Política,Coluna Prestes,Movimento tenentista percorre o interior do país até 1927.
-washington-luis,1929-10-24,dia,Economia,Quebra da Bolsa de Nova York,A crise mundial derruba o preço do café e as exportações brasileiras.
-washington-luis,1930-10-03,dia,Política,Revolução de 1930,Movimento armado que leva Getúlio Vargas ao poder.
-vargas-1,1932-07-09,dia,Política,Revolução Constitucionalista,São Paulo se levanta contra o governo provisório.
-vargas-1,1934-07-16,dia,Política,Constituição de 1934,Nova Constituição institui o voto secreto e o voto feminino.
-vargas-1,1937-11-10,dia,Política,Estado Novo,Golpe instala um regime autoritário até 1945.
-vargas-1,1940-05-01,dia,Economia,Criação do salário mínimo,Decreto fixa os primeiros valores de salário mínimo por região.
-vargas-1,1941-04-09,dia,Economia,Criação da CSN,Fundada a Companhia Siderúrgica Nacional.
-vargas-1,1942-08-22,dia,Internacional,Brasil entra na Segunda Guerra,O país declara guerra ao Eixo.
-vargas-1,1943-05-01,dia,Economia,CLT,Consolidação das Leis do Trabalho reúne a legislação trabalhista.
-dutra,1946-09-18,dia,Política,Constituição de 1946,Nova Constituição restabelece a democracia.
-vargas-2,1953-10-03,dia,Economia,Criação da Petrobras,Lei cria a estatal e o monopólio do petróleo.
-vargas-2,1954-08-24,dia,Política,Morte de Getúlio Vargas,O presidente se suicida no Palácio do Catete.
-jk,1956-06-01,ano,Economia,Plano de Metas,"Programa de investimentos em energia, transporte e indústria."
-jk,1960-04-21,dia,Política,Inauguração de Brasília,A capital é transferida do Rio de Janeiro para Brasília.
-janio,1961-08-25,dia,Política,Renúncia de Jânio Quadros,O presidente renuncia após sete meses de mandato.
-jango,1963-01-06,dia,Política,Plebiscito restaura o presidencialismo,Eleitores rejeitam o parlamentarismo adotado em 1961.
-jango,1964-03-31,dia,Política,Golpe de 1964,Militares depõem o presidente e iniciam o regime militar.
-castelo-branco,1964-12-31,dia,Economia,Criação do Banco Central,Lei da reforma bancária cria o Banco Central do Brasil.
-castelo-branco,1965-10-27,dia,Política,AI-2,Ato institucional extingue os partidos e institui o bipartidarismo.
-castelo-branco,1967-01-24,dia,Política,Constituição de 1967,Nova Constituição concentra poderes no Executivo.
-costa-e-silva,1968-12-13,dia,Política,AI-5,Ato institucional fecha o Congresso e suspende garantias individuais.
-medici,1970-06-01,ano,Economia,Milagre econômico,Período de 1968 a 1973 com crescimento do PIB acima de 10% ao ano.
-medici,1970-06-21,dia,Sociedade,Tricampeonato na Copa,O Brasil vence a Copa do Mundo do México.
-medici,1973-10-01,mes,Economia,Primeiro choque do petróleo,O preço do petróleo quadruplica e encarece as importações.
-geisel,1974-06-01,ano,Economia,II PND,Plano de investimentos em energia e indústria de base financiado por dívida externa.
-geisel,1975-10-25,dia,Política,Morte de Vladimir Herzog,O jornalista morre sob custódia do DOI-Codi em São Paulo.
-geisel,1978-10-13,dia,Política,Revogação do AI-5,Emenda constitucional revoga o AI-5 a partir de 1979.
-figueiredo,1979-08-28,dia,Política,Lei da Anistia,Anistia a presos e exilados políticos e a agentes do Estado.
-figueiredo,1979-06-01,ano,Economia,Segundo choque do petróleo,Nova alta do petróleo e dos juros internacionais pressiona a dívida externa.
-figueiredo,1982-06-01,ano,Economia,Crise da dívida externa,O Brasil recorre ao FMI após a moratória do México.
-figueiredo,1984-04-25,dia,Política,Diretas Já,A Câmara rejeita a emenda que previa eleição direta para presidente.
-figueiredo,1985-01-15,dia,Política,Eleição de Tancredo Neves,O Colégio Eleitoral escolhe o primeiro presidente civil desde 1964.
-sarney,1986-02-28,dia,Economia,Plano Cruzado,Congelamento de preços e troca do cruzeiro pelo cruzado.
-sarney,1987-02-20,dia,Economia,Moratória da dívida externa,O governo suspende o pagamento de juros aos bancos estrangeiros.
-sarney,1988-10-05,dia,Política,Constituição de 1988,Promulgada a Constituição em vigor até hoje.
-sarney,1989-11-15,dia,Política,Primeira eleição direta desde 1960,Eleitores voltam a escolher o presidente pelo voto direto.
-collor,1990-03-16,dia,Economia,Plano Collor,Bloqueio das cadernetas de poupança e contas acima de um limite.
-collor,1992-06-03,dia,Internacional,Eco-92,Conferência da ONU sobre meio ambiente no Rio de Janeiro.
-collor,1992-09-29,dia,Política,Câmara aprova o impeachment de Collor,O presidente é afastado e o vice Itamar Franco assume.
-itamar,1993-04-21,dia,Política,Plebiscito sobre forma de governo,Eleitores mantêm a república presidencialista.
-itamar,1994-07-01,dia,Economia,Plano Real,O real entra em circulação e a inflação cai.
-fhc,1997-06-04,dia,Política,Emenda da reeleição,"Presidente, governadores e prefeitos passam a poder disputar a reeleição."
-fhc,1998-07-29,dia,Economia,Privatização da Telebrás,Venda do sistema estatal de telecomunicações.
-fhc,1999-01-01,mes,Economia,Câmbio flutuante,O Banco Central deixa o real flutuar e o dólar dispara.
-fhc,1999-06-21,dia,Economia,Regime de metas de inflação,Decreto institui as metas de inflação.
-fhc,2000-05-04,dia,Economia,Lei de Responsabilidade Fiscal,"Lei fixa limites para gastos e dívidas de União, estados e municípios."
-fhc,2001-06-01,mes,Economia,Racionamento de energia,Crise hídrica leva ao racionamento de eletricidade.
-lula-1,2003-10-20,dia,Sociedade,Criação do Bolsa Família,Programa unifica transferências de renda para famílias pobres.
-lula-1,2005-12-01,mes,Economia,Quitação da dívida com o FMI,O governo antecipa o pagamento do empréstimo do FMI.
-lula-1,2007-11-01,mes,Economia,Descoberta do pré-sal,Petrobras anuncia grandes reservas de petróleo em águas profundas.
-lula-1,2008-04-30,dia,Economia,Grau de investimento,O Brasil recebe pela primeira vez o grau de investimento.
-lula-1,2008-09-15,dia,Internacional,Crise financeira global,A quebra do Lehman Brothers inicia a crise mundial.
-dilma,2013-06-01,mes,Sociedade,Protestos de junho de 2013,Manifestações em todo o país começam contra o aumento das passagens.
-dilma,2014-03-17,dia,Política,Operação Lava Jato,Começa a investigação sobre corrupção na Petrobras.
-dilma,2014-06-12,dia,Sociedade,Copa do Mundo no Brasil,O país sedia a Copa do Mundo.
-dilma,2015-06-01,ano,Economia,Recessão de 2015 e 2016,O PIB cai em dois anos seguidos.
-dilma,2016-04-17,dia,Política,Câmara aprova o impeachment de Dilma,O processo segue para o Senado e a presidente é afastada em maio.
-temer,2016-08-05,dia,Sociedade,Olimpíada do Rio,O Rio de Janeiro sedia os Jogos Olímpicos.
-temer,2016-08-31,dia,Política,Senado conclui o impeachment,Dilma Rousseff é destituída e Michel Temer é efetivado.
-temer,2016-12-15,dia,Economia,Teto de gastos,Emenda constitucional limita o crescimento das despesas federais.
-temer,2017-07-13,dia,Economia,Reforma trabalhista,Lei altera regras da CLT sobre contratos e negociação coletiva.
-temer,2018-05-21,dia,Economia,Greve dos caminhoneiros,Paralisação bloqueia estradas e causa desabastecimento.
-bolsonaro,2019-11-12,dia,Economia,Reforma da Previdência,Emenda muda as regras de aposentadoria.
-bolsonaro,2020-02-26,dia,Sociedade,Pandemia de covid-19,Confirmado o primeiro caso no Brasil.
-bolsonaro,2020-04-02,dia,Economia,Auxílio emergencial,Pagamento de renda a trabalhadores informais durante a pandemia.
-bolsonaro,2021-01-17,dia,Sociedade,Início da vacinação contra a covid-19,Primeira dose aplicada no país.
-bolsonaro,2021-02-24,dia,Economia,Autonomia do Banco Central,Lei fixa mandatos para a diretoria do Banco Central.
-lula-3,2023-01-08,dia,Política,Ataques de 8 de janeiro,Sedes dos Três Poderes são invadidas e depredadas em Brasília.
-lula-3,2023-08-30,dia,Economia,Novo arcabouço fiscal,Lei substitui o teto de gastos por novas regras fiscais.
-lula-3,2023-12-20,dia,Economia,Reforma tributária,Emenda unifica impostos sobre o consumo.
-lula-3,2024-05-01,mes,Sociedade,Enchentes no Rio Grande do Sul,Chuvas extremas atingem a maior parte dos municípios gaúchos.
+governo_id,data,precisao,categoria,titulo,descricao,fonte,link
+deodoro,1889-11-15,dia,Política,Proclamação da República,Fim do Império e início do governo provisório republicano.,Agência Brasil,https://agenciabrasil.ebc.com.br/geral/noticia/2019-11/proclamacao-da-republica-completa-130-anos
+deodoro,1890-06-01,ano,Economia,Encilhamento,Expansão do crédito e da emissão de moeda leva a uma bolha especulativa na bolsa e a uma crise em 1891.,CPDOC FGV,https://cpdoc.fgv.br/sites/default/files/verbetes/primeira-republica/ENCILHAMENTO.pdf
+deodoro,1891-02-24,dia,Política,Primeira Constituição republicana,Promulgada a Constituição de 1891: federalismo e presidencialismo.,Agência Senado,https://www12.senado.leg.br/noticias/especiais/arquivo-s/constituicao-de-1891-ha-130-anos-1a-constituinte-da-republica-teve-queixas-da-igreja-e-ausencia-do-povo
+floriano,1893-02-01,mes,Política,Revolução Federalista,Guerra civil no Sul do país entre federalistas e republicanos.,Agência Senado,https://www12.senado.leg.br/noticias/especiais/arquivo-s/na-revolucao-federalista-em-1893-senadores-chegaram-a-pegar-em-armas
+floriano,1893-09-06,dia,Política,Revolta da Armada,Unidades da Marinha se rebelam contra o governo no Rio de Janeiro.,Biblioteca do Senado,https://www2.senado.leg.br/bdsf/item/id/518645
+prudente,1897-10-05,dia,Sociedade,Fim da Guerra de Canudos,Termina o conflito no sertão da Bahia com a destruição do arraial.,Museu da República,https://museudarepublica.museus.gov.br/wp-content/uploads/2017/10/CronoCanudos.pdf
+rodrigues-alves,1903-11-17,dia,Política,Tratado de Petrópolis,O Acre passa a fazer parte do Brasil após acordo com a Bolívia.,Rádio Senado,https://www12.senado.leg.br/radio/1/conexao-senado/2021/11/17/dedo-de-prosa-aniversario-da-assinatura-do-tratado-de-petropolis-que-incorporou-o-acre-ao-brasil
+rodrigues-alves,1904-11-10,dia,Sociedade,Revolta da Vacina,Protestos no Rio de Janeiro contra a vacinação obrigatória contra a varíola.,Agência Brasil,https://agenciabrasil.ebc.com.br/radioagencia-nacional/geral/audio/2018-11/historia-hoje-saiba-mais-sobre-o-levante-popular-de-1904
+hermes,1910-11-22,dia,Sociedade,Revolta da Chibata,Marinheiros se rebelam contra os castigos físicos na Marinha.,Agência Senado,https://www12.senado.leg.br/noticias/videos/2020/11/em-1910-marinheiros-se-revoltaram-contra-chibata-e-racismo-no-brasil-pos-abolicao
+hermes,1912-10-01,mes,Sociedade,Guerra do Contestado,Início do conflito armado na divisa entre Paraná e Santa Catarina.,Agência Senado,https://www12.senado.leg.br/noticias/materias/2016/07/01/ha-100-anos-o-fim-da-sangrenta-guerra-do-contestado
+venceslau,1917-07-01,mes,Sociedade,Greve geral de 1917,Paralisação de trabalhadores em São Paulo que se espalha por outras cidades.,Agência Senado,https://www12.senado.leg.br/noticias/especiais/arquivo-s/ha-100-anos-greve-geral-parou-sao-paulo
+venceslau,1917-10-26,dia,Internacional,Brasil entra na Primeira Guerra,O país declara guerra à Alemanha.,Agência Brasil,https://agenciabrasil.ebc.com.br/radioagencia-nacional/internacional/audio/2015-10/historia-hoje-ha-98-anos-brasil-entrava-na
+venceslau,1918-10-01,mes,Sociedade,Gripe espanhola,A pandemia chega ao auge no Brasil.,Agência Senado,https://www12.senado.leg.br/noticias/especiais/arquivo-s/ha-100-anos-gripe-espanhola-devastou-pais-e-matou-presidente
+epitacio,1922-02-13,dia,Sociedade,Semana de Arte Moderna,Evento em São Paulo marca o início do modernismo brasileiro.,Agência Brasil,https://agenciabrasil.ebc.com.br/geral/noticia/2022-02/semana-de-arte-moderna-e-considerada-marco-mas-nao-iniciou-movimento
+epitacio,1922-07-05,dia,Política,Revolta dos 18 do Forte,Primeiro levante tenentista no Forte de Copacabana.,Agência Brasil,https://agenciabrasil.ebc.com.br/es/node/1344151
+bernardes,1924-07-05,dia,Política,Revolta Paulista de 1924,Levante tenentista ocupa São Paulo por três semanas.,Agência Brasil,https://agenciabrasil.ebc.com.br/geral/noticia/2024-06/exposicao-de-fotos-na-alesp-relembra-revolta-paulista-de-1924
+bernardes,1925-06-01,ano,Política,Coluna Prestes,Movimento tenentista percorre o interior do país até 1927.,Agência Brasil,https://agenciabrasil.ebc.com.br/politica/noticia/2024-10/coluna-prestes-maior-marcha-militar-do-mundo-completa-hoje-100-anos
+washington-luis,1929-10-24,dia,Economia,Quebra da Bolsa de Nova York,A crise mundial derruba o preço do café e as exportações brasileiras.,Agência Brasil,https://agenciabrasil.ebc.com.br/radioagencia-nacional/geral/audio/2015-10/historia-hoje-saiba-como-foi-quebra-da-bolsa-de-nova-york
+washington-luis,1930-10-03,dia,Política,Revolução de 1930,Movimento armado que leva Getúlio Vargas ao poder.,Rádio Senado,https://www12.senado.leg.br/radio/1/180-anos-do-senado-brasileiro-um-roteiro-pela-historia-do-senado-no-brasil-e-no-mundo/2006/09/09/19-o-senado-e-a-revolucao-de-1930
+vargas-1,1932-07-09,dia,Política,Revolução Constitucionalista,São Paulo se levanta contra o governo provisório.,Agência Brasil,https://agenciabrasil.ebc.com.br/geral/noticia/2024-07/saiba-o-que-foi-revolucao-constitucionalista-de-1932-em-sao-paulo
+vargas-1,1934-07-16,dia,Política,Constituição de 1934,Nova Constituição institui o voto secreto e o voto feminino.,Agência Senado,https://www12.senado.leg.br/noticias/videos/2023/04/constituicoes-de-1934-e-de-1946-marcam-periodos-democraticos
+vargas-1,1937-11-10,dia,Política,Estado Novo,Golpe instala um regime autoritário até 1945.,Agência Senado,https://www12.senado.leg.br/noticias/especiais/arquivo-s/com-golpe-dado-por-getulio-brasil-ficou-nove-anos-sem-senado
+vargas-1,1940-05-01,dia,Economia,Criação do salário mínimo,Decreto fixa os primeiros valores de salário mínimo por região.,Agência Senado,https://www12.senado.leg.br/noticias/materias/2011/02/16/desde-o-inicio-definicao-do-minimo-gerou-efervescencia-politica
+vargas-1,1941-04-09,dia,Economia,Criação da CSN,Fundada a Companhia Siderúrgica Nacional.,Câmara dos Deputados,https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3002-30-janeiro-1941-412984-publicacaooriginal-1-pe.html
+vargas-1,1942-08-22,dia,Internacional,Brasil entra na Segunda Guerra,O país declara guerra ao Eixo.,Câmara dos Deputados,https://www2.camara.leg.br/atividade-legislativa/plenario/discursos/escrevendohistoria/serie-estrangeira/decada-de-40
+vargas-1,1943-05-01,dia,Economia,CLT,Consolidação das Leis do Trabalho reúne a legislação trabalhista.,Agência Brasil,https://agenciabrasil.ebc.com.br/geral/noticia/2023-04/hoje-e-dia-destaca-os-80-anos-da-clt-e-o-dia-do-trabalhador
+dutra,1946-09-18,dia,Política,Constituição de 1946,Nova Constituição restabelece a democracia.,Rádio Senado,https://www12.senado.leg.br/radio/1/noticia/2026/09/17/ha-80-anos-constituicao-de-1946-marcou-retomada-democratica-no-brasil
+vargas-2,1953-10-03,dia,Economia,Criação da Petrobras,Lei cria a estatal e o monopólio do petróleo.,Agência Senado,https://www12.senado.leg.br/noticias/especiais/arquivo-s/criacao-da-petrobras-rachou-senado-em-1953
+vargas-2,1954-08-24,dia,Política,Morte de Getúlio Vargas,O presidente se suicida no Palácio do Catete.,Agência Brasil,https://agenciabrasil.ebc.com.br/politica/noticia/2014-08/suicidio-do-ex-presidente-getulio-vargas-completa-60-anos
+jk,1956-06-01,ano,Economia,Plano de Metas,"Programa de investimentos em energia, transporte e indústria.",Agência Câmara,https://www.camara.leg.br/noticias/21813-especial-historico-a-vida-de-juscelino-kubitschek/
+jk,1960-04-21,dia,Política,Inauguração de Brasília,A capital é transferida do Rio de Janeiro para Brasília.,Agência Senado,https://www12.senado.leg.br/noticias/infomaterias/2020/05/brasilia-60-anos-2014-a-festa-de-inauguracao
+janio,1961-08-25,dia,Política,Renúncia de Jânio Quadros,O presidente renuncia após sete meses de mandato.,Agência Senado,https://www12.senado.leg.br/noticias/especiais/arquivo-s/ha-60-anos-congresso-aceitou-renuncia-e-abortou-golpe-de-janio-quadros
+jango,1963-01-06,dia,Política,Plebiscito restaura o presidencialismo,Eleitores rejeitam o parlamentarismo adotado em 1961.,Agência Senado,https://www12.senado.leg.br/noticias/especiais/arquivo-s/ha-55-anos-senado-ajudou-a-derrubar-parlamentarismo/ha-55-anos-senado-ajudou-a-derrubar-parlamentarismo
+jango,1964-03-31,dia,Política,Golpe de 1964,Militares depõem o presidente e iniciam o regime militar.,Agência Brasil,https://agenciabrasil.ebc.com.br/politica/noticia/2014-03/31-de-marco-militares-consumam-golpe-contra-jango-e-a-democracia
+castelo-branco,1964-12-31,dia,Economia,Criação do Banco Central,Lei da reforma bancária cria o Banco Central do Brasil.,Agência Senado,https://www12.senado.leg.br/noticias/especiais/arquivo-s/brasil-demorou-a-criar-o-banco-central-por-resistencia-de-bancos-e-governos
+castelo-branco,1965-10-27,dia,Política,AI-2,Ato institucional extingue os partidos e institui o bipartidarismo.,Agência Senado,https://www12.senado.leg.br/noticias/especiais/arquivo-s/ha-60-anos-ai-2-aumentou-numero-de-ministros-para-alinhar-stf-a-ditadura
+castelo-branco,1967-01-24,dia,Política,Constituição de 1967,Nova Constituição concentra poderes no Executivo.,Rádio Câmara,https://www.camara.leg.br/radio/programas/277511-constituicao-promulgada-em-1967-constituicao-que-buscou-legitimar-o-governo-militar-autoritario-07-55/
+costa-e-silva,1968-12-13,dia,Política,AI-5,Ato institucional fecha o Congresso e suspende garantias individuais.,Agência Brasil,https://agenciabrasil.ebc.com.br/politica/noticia/2018-12/ha-50-anos-ai-5-suspendia-direitos-politicos-no-pais
+medici,1970-06-01,ano,Economia,Milagre econômico,Período de 1968 a 1973 com crescimento do PIB acima de 10% ao ano.,Agência Brasil,https://agenciabrasil.ebc.com.br/politica/noticia/2014-03/milagre-para-uns-crescimento-da-economia-foi-retrocesso-para-maioria
+medici,1970-06-21,dia,Sociedade,Tricampeonato na Copa,O Brasil vence a Copa do Mundo do México.,,
+medici,1973-10-01,mes,Economia,Primeiro choque do petróleo,O preço do petróleo quadruplica e encarece as importações.,Agência Senado,https://www12.senado.leg.br/noticias/especiais/arquivo-s/ha-50-anos-crise-mundial-do-petroleo-fez-brasil-criar-carro-a-alcool
+geisel,1974-06-01,ano,Economia,II PND,Plano de investimentos em energia e indústria de base financiado por dívida externa.,Rádio Senado,https://www12.senado.leg.br/radio/1/o-brasil-no-seculo-xx/2001/09/25/geisel-desenvolvimento-economico-volta-gradual-a-democracia
+geisel,1975-10-25,dia,Política,Morte de Vladimir Herzog,O jornalista morre sob custódia do DOI-Codi em São Paulo.,Agência Brasil,https://agenciabrasil.ebc.com.br/direitos-humanos/noticia/2025-10/meio-seculo-apos-sua-morte-herzog-tem-legado-preservado-em-filme-e-ia
+geisel,1978-10-13,dia,Política,Revogação do AI-5,Emenda constitucional revoga o AI-5 a partir de 1979.,Rádio Senado,https://www12.senado.leg.br/radio/1/senado-200-anos-a-historia-passa-por-aqui/2024/04/12/episodio-20-do-aumento-da-repressao-a-abertura-politica
+figueiredo,1979-08-28,dia,Política,Lei da Anistia,Anistia a presos e exilados políticos e a agentes do Estado.,Agência Câmara,https://www2.camara.leg.br/atividade-legislativa/plenario/discursos/escrevendohistoria/destaque-de-materias/destaque-de-materias/lei-da-anistia
+figueiredo,1979-06-01,ano,Economia,Segundo choque do petróleo,Nova alta do petróleo e dos juros internacionais pressiona a dívida externa.,,
+figueiredo,1982-06-01,ano,Economia,Crise da dívida externa,O Brasil recorre ao FMI após a moratória do México.,,
+figueiredo,1984-04-25,dia,Política,Diretas Já,A Câmara rejeita a emenda que previa eleição direta para presidente.,Agência Câmara,https://www2.camara.leg.br/atividade-legislativa/plenario/discursos/escrevendohistoria/destaque-de-materias/diretas-ja
+figueiredo,1985-01-15,dia,Política,Eleição de Tancredo Neves,O Colégio Eleitoral escolhe o primeiro presidente civil desde 1964.,Agência Brasil,https://agenciabrasil.ebc.com.br/politica/noticia/2015-01/eleicao-de-tancredo-completa-30-anos-e-continua-influenciando-politica
+sarney,1986-02-28,dia,Economia,Plano Cruzado,Congelamento de preços e troca do cruzeiro pelo cruzado.,Rádio Câmara,https://www.camara.leg.br/radio/programas/271185-28-de-janeiro-de-1986-governo-sarney-lanca-plano-cruzado-06-47
+sarney,1987-02-20,dia,Economia,Moratória da dívida externa,O governo suspende o pagamento de juros aos bancos estrangeiros.,,
+sarney,1988-10-05,dia,Política,Constituição de 1988,Promulgada a Constituição em vigor até hoje.,Rádio Senado,https://www12.senado.leg.br/radio/1/senado-200-anos-a-historia-passa-por-aqui/2024/04/23/episodio-23-a-constituinte-e-a-constituicao-de-1988
+sarney,1989-11-15,dia,Política,Primeira eleição direta desde 1960,Eleitores voltam a escolher o presidente pelo voto direto.,A Gazeta,https://www.agazeta.com.br/es/politica/eleicoes-ha-30-anos-brasil-voltava-as-urnas-para-escolher-presidente-1119
+collor,1990-03-16,dia,Economia,Plano Collor,Bloqueio das cadernetas de poupança e contas acima de um limite.,Poder360,https://www.poder360.com.br/poder-economia/confisco-da-poupanca-por-collor-completa-35-anos
+collor,1992-06-03,dia,Internacional,Eco-92,Conferência da ONU sobre meio ambiente no Rio de Janeiro.,,
+collor,1992-09-29,dia,Política,Câmara aprova o impeachment de Collor,O presidente é afastado e o vice Itamar Franco assume.,Agência Câmara,https://www2.camara.leg.br/atividade-legislativa/plenario/discursos/escrevendohistoria/destaque-de-materias/20-anos-do-impeachment
+itamar,1993-04-21,dia,Política,Plebiscito sobre forma de governo,Eleitores mantêm a república presidencialista.,Agência Senado,https://www12.senado.leg.br/noticias/especiais/arquivo-s/ha-30-anos-brasil-foi-as-urnas-decidir-se-teria-rei-e-primeiro-ministro/
+itamar,1994-07-01,dia,Economia,Plano Real,O real entra em circulação e a inflação cai.,Correio Braziliense,https://www.correiobraziliense.com.br/economia/2024/07/6888606-30-anos-do-plano-real-nova-moeda-teve-logistica-de-guerra-no-lancamento.html
+fhc,1997-06-04,dia,Política,Emenda da reeleição,"Presidente, governadores e prefeitos passam a poder disputar a reeleição.",Poder360,https://www.poder360.com.br/brasil/entenda-como-foi-a-compra-de-votos-a-favor-da-emenda-da-reeleicao-em-1997/
+fhc,1998-07-29,dia,Economia,Privatização da Telebrás,Venda do sistema estatal de telecomunicações.,IstoÉ Dinheiro,https://istoedinheiro.com.br/1998-a-privatizacao-que-deu-o-que-falar-2
+fhc,1999-01-01,mes,Economia,Câmbio flutuante,O Banco Central deixa o real flutuar e o dólar dispara.,InfoMoney,https://www.infomoney.com.br/mercados/a-maxidesvalorizacao-do-real-que-fez-o-ibovespa-saltar-334-em-um-dia-e-tornou-o-fundo-verde-de-stuhlberger-famoso/
+fhc,1999-06-21,dia,Economia,Regime de metas de inflação,Decreto institui as metas de inflação.,,
+fhc,2000-05-04,dia,Economia,Lei de Responsabilidade Fiscal,"Lei fixa limites para gastos e dívidas de União, estados e municípios.",Rádio Senado,https://www12.senado.leg.br/radio/1/noticia/2025/05/22/senado-celebra-25-anos-da-lei-de-responsabilidade-fiscal
+fhc,2001-06-01,mes,Economia,Racionamento de energia,Crise hídrica leva ao racionamento de eletricidade.,,
+lula-1,2003-10-20,dia,Sociedade,Criação do Bolsa Família,Programa unifica transferências de renda para famílias pobres.,Agência Gov,https://agenciagov.ebc.com.br/noticias/202410/ha-21-anos-o-bolsa-familia-mais-que-um-auxilio-transforma-vidas-e-traz-cidadania
+lula-1,2005-12-01,mes,Economia,Quitação da dívida com o FMI,O governo antecipa o pagamento do empréstimo do FMI.,Congresso em Foco,https://www.congressoemfoco.com.br/noticia/102766/lula-fala-a-nacao-esta-noite-sobre-fmi
+lula-1,2007-11-01,mes,Economia,Descoberta do pré-sal,Petrobras anuncia grandes reservas de petróleo em águas profundas.,InfoMoney,https://www.infomoney.com.br/mercados/o-anuncio-do-potencial-do-pre-sal-que-mudou-a-historia-da-petrobras-e-levou-as-acoes-as-alturas/
+lula-1,2008-04-30,dia,Economia,Grau de investimento,O Brasil recebe pela primeira vez o grau de investimento.,Exame,https://exame.com/economia/em-2008-decisao-da-s-p-foi-festejada-por-lula/
+lula-1,2008-09-15,dia,Internacional,Crise financeira global,A quebra do Lehman Brothers inicia a crise mundial.,Agência Brasil,https://agenciabrasil.ebc.com.br/economia/noticia/2018-09/marco-de-crise-global-quebra-do-lehman-brothers-completa-10-anos
+dilma,2013-06-01,mes,Sociedade,Protestos de junho de 2013,Manifestações em todo o país começam contra o aumento das passagens.,Agência Brasil,https://agenciabrasil.ebc.com.br/geral/noticia/2023-06/junho-de-2013-entenda-o-cenario-de-insatisfacao-que-levou-a-protestos
+dilma,2014-03-17,dia,Política,Operação Lava Jato,Começa a investigação sobre corrupção na Petrobras.,Agência Brasil,https://agenciabrasil.ebc.com.br/justica/noticia/2024-03/lava-jato-completa-10-anos-com-resultados-em-xeque-e-prestigio-abalado
+dilma,2014-06-12,dia,Sociedade,Copa do Mundo no Brasil,O país sedia a Copa do Mundo.,Agência Brasil,https://agenciabrasil.ebc.com.br/geral/noticia/2014-06/brasil-vence-croacia-por-3-1
+dilma,2015-06-01,ano,Economia,Recessão de 2015 e 2016,O PIB cai em dois anos seguidos.,Agência Brasil,https://agenciabrasil.ebc.com.br/economia/noticia/2017-03/pib-fecha-2016-com-uma-queda-de-36
+dilma,2016-04-17,dia,Política,Câmara aprova o impeachment de Dilma,O processo segue para o Senado e a presidente é afastada em maio.,Agência Brasil,https://agenciabrasil.ebc.com.br/politica/noticia/2016-04/C%C3%A2mara%20aprova%20abertura%20de%20impeachment%20de%20Dilma;%20processo%20segue%20para%20o%20Senado
+temer,2016-08-05,dia,Sociedade,Olimpíada do Rio,O Rio de Janeiro sedia os Jogos Olímpicos.,Agência Brasil,https://agenciabrasil.ebc.com.br/rio-2016/noticia/2016-08/festa-no-maracana-marca-abertura-dos-jogos-olimpicos-rio-2016
+temer,2016-08-31,dia,Política,Senado conclui o impeachment,Dilma Rousseff é destituída e Michel Temer é efetivado.,Agência Brasil,https://agenciabrasil.ebc.com.br/politica/noticia/2016-08/senado-aprova-impeachment-e-dilma-e-afastada-definitivamente-da-presidencia
+temer,2016-12-15,dia,Economia,Teto de gastos,Emenda constitucional limita o crescimento das despesas federais.,Agência Brasil,https://agenciabrasil.ebc.com.br/geral/noticia/2016-12/emenda-do-teto-dos-gastos-publicos-e-promulgada
+temer,2017-07-13,dia,Economia,Reforma trabalhista,Lei altera regras da CLT sobre contratos e negociação coletiva.,Agência Brasil,https://agenciabrasil.ebc.com.br/economia/noticia/2017-07/temer-sanciona-lei-que-altera-clt
+temer,2018-05-21,dia,Economia,Greve dos caminhoneiros,Paralisação bloqueia estradas e causa desabastecimento.,Agência Brasil,https://agenciabrasil.ebc.com.br/geral/noticia/2018-05/veja-os-impactos-apos-oito-dias-de-paralisacao-dos-caminhoneiros
+bolsonaro,2019-11-12,dia,Economia,Reforma da Previdência,Emenda muda as regras de aposentadoria.,Agência Brasil,https://agenciabrasil.ebc.com.br/politica/noticia/2019-11/reforma-da-previdencia-e-promulgada-pelo-congresso
+bolsonaro,2020-02-26,dia,Sociedade,Pandemia de covid-19,Confirmado o primeiro caso no Brasil.,Agência Brasil,https://agenciabrasil.ebc.com.br/saude/noticia/2020-02/ministerio-da-saude-confirma-primeiro-caso-de-coronavirus-no-brasil
+bolsonaro,2020-04-02,dia,Economia,Auxílio emergencial,Pagamento de renda a trabalhadores informais durante a pandemia.,Agência Brasil,https://agenciabrasil.ebc.com.br/politica/noticia/2020-04/bolsonaro-sanciona-lei-da-renda-basica-emergencial
+bolsonaro,2021-01-17,dia,Sociedade,Início da vacinação contra a covid-19,Primeira dose aplicada no país.,Agência Brasil,https://agenciabrasil.ebc.com.br/saude/noticia/2021-01/vacinacao-contra-covid-19-come%C3%A7a-em-todo-o-pais
+bolsonaro,2021-02-24,dia,Economia,Autonomia do Banco Central,Lei fixa mandatos para a diretoria do Banco Central.,Agência Brasil,https://agenciabrasil.ebc.com.br/politica/noticia/2021-02/bolsonaro-sanciona-lei-que-da-autonomia-ao-banco-central
+lula-3,2023-01-08,dia,Política,Ataques de 8 de janeiro,Sedes dos Três Poderes são invadidas e depredadas em Brasília.,Agência Brasil,https://agenciabrasil.ebc.com.br/politica/noticia/2024-01/relembre-o-passo-passo-da-tentativa-de-golpe-no-81
+lula-3,2023-08-30,dia,Economia,Novo arcabouço fiscal,Lei substitui o teto de gastos por novas regras fiscais.,CNN Brasil,https://www.cnnbrasil.com.br/economia/macroeconomia/lula-sanciona-novo-marco-fiscal-e-veta-dois-trechos/
+lula-3,2023-12-20,dia,Economia,Reforma tributária,Emenda unifica impostos sobre o consumo.,Agência Brasil,https://agenciabrasil.ebc.com.br/economia/noticia/2023-12/congresso-promulga-emenda-constitucional-da-reforma-tributaria
+lula-3,2024-05-01,mes,Sociedade,Enchentes no Rio Grande do Sul,Chuvas extremas atingem a maior parte dos municípios gaúchos.,Agência Brasil,https://agenciabrasil.ebc.com.br/geral/noticia/2024-05/quase-90-das-cidades-do-rs-foram-atingidas-pelas-fortes-chuvas
