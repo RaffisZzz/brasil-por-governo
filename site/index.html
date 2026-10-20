@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Brasil por Governo</title>
-  <meta name="description" content="Indicadores econômicos de cada governo brasileiro: PIB, inflação, dólar, juros, desemprego, dívida, salário mínimo e reservas, com dados oficiais do Banco Central e do IBGE reunidos pelo Ipeadata.">
+  <meta name="description" content="Como estava o Brasil em cada governo: preços, salário, renda, desemprego, pobreza, saneamento, saúde, violência e educação, além dos indicadores da economia, com dados oficiais do IBGE, do Banco Central e do Banco Mundial.">
   <link rel="stylesheet" href="assets/style.css">
   <script src="assets/vendor/echarts.min.js" defer></script><!-- Apache ECharts 5.5.1, licença Apache 2.0 -->
   <script src="assets/app.js" defer></script>
@@ -48,6 +48,7 @@
         </div>
       </div>
 
+      <div class="segmento" role="tablist" aria-label="Grupo de indicadores" id="g-abas"></div>
       <div class="kpis" id="g-kpis"></div>
       <p class="nota-cobertura" id="g-cobertura"></p>
       <div class="cartao eventos" id="g-eventos-cartao">
@@ -74,9 +75,10 @@
         <button type="button" id="trocar" class="botao-trocar" aria-label="Trocar A e B">⇄</button>
         <label class="sel-b">Governo B <select id="sel-b"></select></label>
       </div>
+      <div class="segmento" role="tablist" aria-label="Grupo de indicadores" id="c-abas"></div>
       <div class="cartao">
         <div class="rolagem"><table class="tabela comparar" id="tab-comparar"></table></div>
-        <p class="nota-cobertura">A última coluna diz qual número é maior, não qual é melhor: inflação ou desemprego maiores, por exemplo, não são bons sinais. A diferença está em pontos percentuais (p.p.).</p>
+        <p class="nota-cobertura">A última coluna diz qual número é maior, não qual é melhor: inflação ou desemprego maiores, por exemplo, não são bons sinais. A diferença está na unidade de cada indicador; p.p. quer dizer pontos percentuais. Nos indicadores sociais, vale o último ano de cada mandato.</p>
       </div>
       <div class="eventos-comparar" id="c-eventos"></div>
       <div class="graficos" id="c-graficos"></div>
@@ -86,8 +88,9 @@
     <section id="vista-todos" class="vista" hidden>
       <div class="heroi">
         <h1>Todos os governos</h1>
-        <p class="datas">Clique no título de uma coluna para ordenar e numa linha para abrir o governo. Traço significa que não há série oficial para o período.</p>
+        <p class="datas">Clique no título de uma coluna para ordenar e numa linha para abrir o governo. Nos indicadores sociais, o número é o do último ano de cada mandato.</p>
       </div>
+      <div class="segmento" role="tablist" aria-label="Grupo de indicadores" id="t-abas"></div>
       <div class="cartao rolagem">
         <table class="tabela todos" id="tab-todos"></table>
       </div>
@@ -108,7 +111,9 @@
         <h2>Como os números são calculados</h2>
         <ul>
           <li>Cada mês pertence ao governo que estava no cargo no primeiro dia do mês.</li>
-          <li>Cada ano do PIB pertence ao governo que ocupou a maior parte daquele ano.</li>
+          <li>Cada ano do PIB e dos indicadores sociais pertence ao governo que ocupou a maior parte daquele ano.</li>
+          <li>Os indicadores sociais (pobreza, saneamento, saúde, violência e analfabetismo) são anuais e saem com um ou dois anos de atraso. Nos cartões aparece o último ano de cada mandato e o primeiro, para comparação.</li>
+          <li>"Sem informação" quer dizer que não existe medição oficial para aquele período: a série começa depois, ou não houve pesquisa naqueles anos.</li>
           <li>"Início" e "fim" são o primeiro e o último mês de cada mandato com dado disponível.</li>
           <li>A inflação acumulada multiplica as variações mensais do IPCA; a média anual distribui esse total pelos meses do mandato.</li>
           <li>O salário mínimo real é corrigido pelo IPCA até o último mês divulgado.</li>
@@ -116,7 +121,7 @@
         </ul>
         <h2>Como foi feito</h2>
         <ol>
-          <li><strong>Coleta (Python):</strong> as séries do Banco Central e do IBGE são baixadas da API do Ipeadata.</li>
+          <li><strong>Coleta (Python):</strong> as séries do Banco Central e do IBGE são baixadas da API do Ipeadata, e os indicadores sociais, da API do Banco Mundial.</li>
           <li><strong>ETL (PySpark):</strong> as séries são agregadas por mês e ligadas à linha do tempo dos governos por junção de intervalos de datas.</li>
           <li><strong>Warehouse (SQL no DuckDB):</strong> as métricas por mandato, o índice de preços e o salário real são consultas SQL.</li>
           <li><strong>Site (HTML, CSS e JavaScript):</strong> esta página lê os JSON exportados e desenha os gráficos com Apache ECharts.</li>
@@ -129,7 +134,7 @@
   </main>
 
   <footer class="rodape conteudo">
-    Dados: Banco Central do Brasil e IBGE, via Ipeadata. Indicadores descrevem o período, não atribuem mérito ou culpa.
+    Dados: IBGE e Banco Central do Brasil, via Ipeadata, e Banco Mundial. Indicadores descrevem o período, não atribuem mérito ou culpa.
   </footer>
 </body>
 </html>

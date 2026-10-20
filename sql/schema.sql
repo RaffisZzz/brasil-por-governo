@@ -10,9 +10,13 @@ CREATE OR REPLACE TABLE fato_mensal AS
 SELECT indicador, mes, valor, governo_id
 FROM read_parquet('{curado}/serie_mensal/*.parquet');
 
-CREATE OR REPLACE TABLE fato_pib AS
-SELECT ano, valor AS crescimento, governo_id
-FROM read_parquet('{curado}/pib_anual/*.parquet');
+-- Séries anuais: o PIB e os indicadores sociais. Cada ano pertence ao governo que ocupou mais dias dele.
+CREATE OR REPLACE TABLE fato_anual AS
+SELECT indicador, ano, valor, governo_id
+FROM read_parquet('{curado}/serie_anual/*.parquet');
+
+CREATE OR REPLACE VIEW fato_pib AS
+SELECT ano, valor AS crescimento, governo_id FROM fato_anual WHERE indicador = 'pib';
 
 CREATE OR REPLACE TABLE fato_acontecimento AS
 SELECT governo_id, data, precisao, categoria, titulo, descricao
@@ -36,6 +40,14 @@ FROM fato_mensal s
 JOIN vw_indice_ipca i USING (mes)
 CROSS JOIN base
 WHERE s.indicador = 'salario_minimo';
+
+-- Séries anuais no mesmo formato, para o site: o "mês" é o ano e o mês do mandato conta anos inteiros.
+CREATE OR REPLACE VIEW vw_anual AS
+SELECT a.indicador, CAST(a.ano AS VARCHAR) AS periodo, a.valor, a.governo_id,
+       12 * (a.ano - year(g.inicio)) AS mes_mandato
+FROM fato_anual a
+LEFT JOIN dim_governo g ON g.id = a.governo_id
+WHERE a.indicador <> 'pib';
 
 -- Todas as séries mensais, já com o mês do mandato (0 = mês da posse).
 CREATE OR REPLACE VIEW vw_mensal AS
@@ -73,26 +85,27 @@ mensais AS (
 ),
 anuais AS (
     SELECT
-        governo_id, 'pib' AS indicador,
+        governo_id, indicador,
         count(*)                                          AS meses,  -- aqui conta anos
         make_date(min(ano), 1, 1)                         AS primeiro_mes,
         make_date(max(ano), 12, 1)                        AS ultimo_mes,
-        NULL::DOUBLE                                      AS valor_inicio,
-        NULL::DOUBLE                                      AS valor_fim,
-        avg(crescimento)                                  AS media,
-        100 * (exp(sum(ln(1 + crescimento / 100))) - 1)   AS acumulado
-    FROM fato_pib
+        arg_min(valor, ano)                               AS valor_inicio,
+        arg_max(valor, ano)                               AS valor_fim,
+        avg(valor)                                        AS media,
+        CASE WHEN indicador = 'pib' THEN 100 * (exp(sum(ln(1 + valor / 100))) - 1) END AS acumulado
+    FROM fato_anual
     WHERE governo_id IS NOT NULL
-    GROUP BY governo_id
+    GROUP BY governo_id, indicador
 )
 SELECT
     m.*,
     CASE WHEN m.indicador = 'ipca' THEN 100 * (power(1 + m.acumulado / 100, 12.0 / m.meses) - 1) END AS media_anual,
-    CASE WHEN m.indicador IN ('dolar', 'salario_minimo', 'salario_real', 'reservas')
+    CASE WHEN m.indicador IN ('dolar', 'salario_minimo', 'salario_real', 'reservas', 'renda')
          THEN 100 * (m.valor_fim / m.valor_inicio - 1) END                                            AS variacao_pct,
-    CASE WHEN m.indicador IN ('desemprego', 'divida', 'selic', 'ipca_12m')
+    -- Diferença entre o fim e o início, na unidade do próprio indicador (p.p., anos, mortes por mil...).
+    CASE WHEN m.indicador NOT IN ('dolar', 'salario_minimo', 'salario_real', 'reservas', 'renda', 'pib', 'ipca')
          THEN m.valor_fim - m.valor_inicio END                                                        AS variacao_pp,
-    CASE WHEN m.indicador = 'pib' THEN 'anual'
+    CASE WHEN m.indicador IN (SELECT DISTINCT indicador FROM fato_anual) THEN 'anual'
          WHEN m.primeiro_mes > date_trunc('month', g.inicio) + INTERVAL 1 MONTH THEN 'parcial'
          ELSE 'completa' END                                                                          AS cobertura
 FROM (SELECT * FROM mensais UNION ALL SELECT * FROM anuais) m

@@ -30,12 +30,15 @@ def main() -> None:
         if "derivado" in cfg:
             continue
         lo, hi = cfg["faixa"]
-        if cfg["frequencia"] == "anual":
+        if nome == "pib":
             datas = pd.date_range(cfg["desde"], hoje, freq="YS")
             valores = rng.normal(3, 3, len(datas)).clip(lo, hi)
+        elif cfg["frequencia"] == "anual":  # indicadores sociais: só até o ano passado, como os reais
+            datas = pd.date_range(cfg["desde"], hoje - pd.DateOffset(years=1), freq="YS")
+            valores = passeio(len(datas), (lo + hi) / 2, (hi - lo) / 40, lo, hi, rng)
         else:
             datas = pd.date_range(cfg["desde"], hoje, freq="MS")
-            ini = {"ipca": 1.0, "dolar": 1.0, "salario_minimo": 70, "reservas": 20_000}.get(nome, (lo + hi) / 2)
+            ini = {"ipca": 1.0, "dolar": 1.0, "salario_minimo": 70, "reservas": 20_000, "poder_compra": 12}.get(nome, (lo + hi) / 2)
             passo = {"ipca": 0.3, "dolar": 0.08, "salario_minimo": 6, "reservas": 2_000}.get(nome, (hi - lo) / 40)
             valores = passeio(len(datas), ini, passo, lo, hi, rng)
             if nome == "salario_minimo":

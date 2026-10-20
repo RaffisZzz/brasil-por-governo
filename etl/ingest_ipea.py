@@ -1,4 +1,4 @@
-"""Baixa as séries do catálogo (config.INDICADORES) na API OData do Ipeadata.
+"""Baixa as séries do Ipeadata do catálogo (config.INDICADORES) na API OData.
 
 Uma requisição por série traz o histórico inteiro. Cada série vira
 data/raw/series/<indicador>.parquet com as colunas data e valor.
@@ -38,24 +38,30 @@ def baixar_serie(codigo: str) -> pd.DataFrame:
     return df.dropna().drop_duplicates("data").sort_values("data")
 
 
-def main() -> None:
+def conferir_e_gravar(nome: str, cfg: dict, codigo: str, df: pd.DataFrame) -> str | None:
+    """Corta o início da série, grava o Parquet e devolve um aviso se os valores parecerem errados."""
+    df = df[df["data"] >= date.fromisoformat(cfg["desde"])]
     destino = BRUTO / "series"
     destino.mkdir(parents=True, exist_ok=True)
+    df.to_parquet(destino / f"{nome}.parquet", index=False)
+    print(f"{nome:20s} {codigo:18s} {len(df):>6,} observações, {df['data'].min()} a {df['data'].max()}", flush=True)
+    lo, hi = cfg["faixa"]
+    fora = (~df["valor"].between(lo, hi)).mean() if len(df) else 1.0
+    if len(df) == 0 or fora > 0.2:
+        return f"{nome} ({codigo}): {len(df)} linhas, {fora:.0%} fora da faixa {lo}–{hi}"
+    return None
+
+
+def main() -> None:
     problemas = []
     for nome, cfg in INDICADORES.items():
-        if "derivado" in cfg:  # calculada no PySpark
+        if "ipea" not in cfg:  # derivada no PySpark ou de outra fonte
             continue
         df = baixar_serie(cfg["ipea"])
-        df = df[df["data"] >= date.fromisoformat(cfg["desde"])]
         if cfg.get("anualizar"):  # taxa ao mês -> taxa ao ano
             df["valor"] = 100 * ((1 + df["valor"] / 100) ** 12 - 1)
-        lo, hi = cfg["faixa"]
-        fora = (~df["valor"].between(lo, hi)).mean() if len(df) else 1.0
-        if len(df) == 0 or fora > 0.2:
-            problemas.append(f"{nome} ({cfg['ipea']}): {len(df)} linhas, {fora:.0%} fora da faixa {lo}–{hi}")
-        df.to_parquet(destino / f"{nome}.parquet", index=False)
-        print(f"{nome:15s} {cfg['ipea']:18s} {len(df):>6,} observações, {df['data'].min()} a {df['data'].max()}",
-              flush=True)
+        problemas.append(conferir_e_gravar(nome, cfg, cfg["ipea"], df))
+    problemas = [p for p in problemas if p]
     if problemas:
         raise SystemExit("Séries suspeitas, confira os códigos do Ipeadata:\n  " + "\n  ".join(problemas))
 

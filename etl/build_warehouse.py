@@ -9,7 +9,7 @@ def main() -> None:
     WAREHOUSE.unlink(missing_ok=True)
     with duckdb.connect(str(WAREHOUSE)) as con:
         con.execute(sql)
-        for tabela in ["dim_governo", "fato_mensal", "fato_pib", "fato_acontecimento", "fato_polemica", "metricas_governo"]:
+        for tabela in ["dim_governo", "fato_mensal", "fato_anual", "fato_acontecimento", "fato_polemica", "metricas_governo"]:
             n = con.execute(f"SELECT count(*) FROM {tabela}").fetchone()[0]
             print(f"{tabela}: {n:,} linhas")
 

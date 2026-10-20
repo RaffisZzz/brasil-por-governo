@@ -133,6 +133,20 @@ select {
 .retrato.grande.sem-foto { font-size: 34px; }
 .retrato.mini.sem-foto { font-size: 14px; }
 
+/* Abas "No dia a dia" / "Economia" */
+.segmento {
+  display: inline-flex; gap: 4px; padding: 4px; margin: 8px 0 16px; border-radius: 999px;
+  background: var(--surface-1); border: 1px solid var(--borda);
+}
+.segmento-botao {
+  font: inherit; font-size: 15px; font-weight: 600; padding: 8px 18px; border-radius: 999px; cursor: pointer;
+  border: 0; background: transparent; color: var(--text-secondary);
+}
+.segmento-botao:hover { color: var(--text-primary); }
+.segmento-botao[aria-selected="true"] { background: var(--text-primary); color: var(--surface-1); }
+.fontes-grupo { list-style: none; margin: 14px 0 4px -18px; }
+.sem-info { font-size: 12.5px; }
+
 /* KPIs */
 .kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
 .kpi {
@@ -209,7 +223,8 @@ select {
 .ponto { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
 .ponto.a { background: var(--serie-a); }
 .ponto.b { background: var(--serie-b); }
-.tabela.todos th { cursor: pointer; user-select: none; white-space: nowrap; }
+.tabela.todos th { cursor: pointer; user-select: none; min-width: 96px; vertical-align: bottom; }
+.tabela.todos th:first-child, .tabela.todos td:first-child { min-width: 200px; }
 .tabela.todos th[aria-sort="ascending"]::after { content: " ↑"; }
 .tabela.todos th[aria-sort="descending"]::after { content: " ↓"; }
 .tabela.todos tbody tr { cursor: pointer; }
