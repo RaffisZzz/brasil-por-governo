@@ -246,6 +246,8 @@ select {
 .ponto { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
 .ponto.a { background: var(--serie-a); }
 .ponto.b { background: var(--serie-b); }
+.sem-vencedor { font-weight: 600; color: var(--text-secondary); }
+.maior .sub .ponto { width: 7px; height: 7px; margin-right: 5px; vertical-align: 1px; }
 .tabela.todos th { cursor: pointer; user-select: none; min-width: 96px; vertical-align: bottom; }
 .tabela.todos th:first-child, .tabela.todos td:first-child { min-width: 200px; }
 .tabela.todos th[aria-sort="ascending"]::after { content: " ↑"; }
