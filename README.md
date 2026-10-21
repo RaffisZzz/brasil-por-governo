@@ -31,8 +31,7 @@ dados/governos.csv ─────────► transform_spark.py (PySpark) d
 | --- | --- |
 | `dados/governos.csv` | Linha do tempo dos governos, mantida à mão, com partido e página da Wikipédia de cada presidente |
 | `etl/fotos.py` | Busca na Wikipédia a foto de cada presidente; sem resposta, o site mostra as iniciais |
-| `dados/acontecimentos.csv` | Acontecimentos marcantes de cada governo (lista editorial; o pipeline confere se cada data cai dentro do mandato) |
-| `dados/polemicas.csv` | Polêmicas de cada governo com o desfecho quando houve (lista editorial, mesma conferência de datas) |
+| `dados/acontecimentos.csv` | Acontecimentos marcantes de cada governo com o link de uma notícia sobre cada um (lista editorial; o pipeline confere se cada data cai dentro do mandato, e `scripts/conferir_links.py` avisa quando um link quebra) |
 | `etl/` | Coleta (Python), transformação (PySpark), warehouse e exportação |
 | `sql/` | Modelo do warehouse e consultas de exportação (DuckDB) |
 | `site/` | Site estático: HTML, CSS e JavaScript |

@@ -41,6 +41,10 @@ jobs:
       - name: Rodar o pipeline com dados reais
         run: python run_pipeline.py
 
+      - name: Conferir os links das notícias
+        continue-on-error: true
+        run: python scripts/conferir_links.py
+
       - name: Guardar os CSV para o Power BI
         uses: actions/upload-artifact@v4
         with:
