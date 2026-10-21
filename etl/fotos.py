@@ -12,7 +12,7 @@ import urllib.request
 from config import BRUTO, GOVERNOS_CSV
 
 API = "https://pt.wikipedia.org/w/api.php"
-CABECALHOS = {"User-Agent": "BrasilPorGoverno/1.0 (https://github.com/RaffisZzz/raio-x-saude--munic-pios-)"}
+CABECALHOS = {"User-Agent": "BrasilPorGoverno/1.0 (https://github.com/RaffisZzz/brasil-por-governo)"}
 
 
 def miniaturas(titulos: list[str]) -> dict[str, str]:
