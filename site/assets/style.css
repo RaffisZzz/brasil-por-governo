@@ -157,6 +157,16 @@ select {
 .kpi-valor { font-size: 30px; font-weight: 680; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .kpi-sub { color: var(--text-secondary); font-size: 14px; font-variant-numeric: tabular-nums; }
 .kpi-nota { color: var(--text-muted); font-size: 12.5px; margin-top: auto; padding-top: 6px; }
+.kpi-antes {
+  display: flex; flex-direction: column; gap: 1px;
+  margin-top: auto; padding-top: 10px; border-top: 1px dashed var(--grade);
+  font-variant-numeric: tabular-nums;
+}
+.kpi-sub:has(+ .kpi-antes) { margin-bottom: 10px; }
+.kpi-antes-rotulo { color: var(--text-muted); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.04em; }
+.kpi-antes-valor { color: var(--text-secondary); font-size: 16px; font-weight: 620; }
+.tabela .kpi-antes { align-items: center; margin-top: 6px; padding-top: 6px; }
+.tabela .kpi-antes-valor { font-size: 14px; }
 .kpi-topo { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
 .kpi.melhorou { border-color: color-mix(in srgb, var(--positivo) 45%, var(--borda)); }
 .kpi.piorou { border-color: color-mix(in srgb, var(--negativo) 45%, var(--borda)); }

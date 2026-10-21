@@ -80,8 +80,8 @@ function nivelAnual(ind, rotulo, u, melhor, casas = 1) {
   return {
     ind, grupo: "dia", rotulo, anual: true, melhor,
     principal: (m) => `${fmt(m.valor_fim, casas)}${u.curta}`,
-    sub: (m) => (anoIni(m) === anoFimM(m) ? `${u.longa} em ${anoFimM(m)}`
-      : `${u.longa} em ${anoFimM(m)}; era ${fmt(m.valor_inicio, casas)}${u.curta} em ${anoIni(m)}`),
+    sub: (m) => `${u.longa} em ${anoFimM(m)}`,
+    antes: (m) => `${fmt(m.valor_inicio, casas)}${u.curta}`,
     numero: (m) => m.valor_fim,
     dif: (d) => `${fmt(d, casas)}${u.dif} a mais`,
   };
@@ -98,25 +98,29 @@ const CARTOES = [
   {
     ind: "salario_real", grupo: "dia", rotulo: "Salário mínimo, descontada a inflação", melhor: "subir",
     principal: (m) => `${sinal(m.variacao_pct)}%`,
-    sub: (m) => `de R$ ${fmt(m.valor_inicio, 0)} para R$ ${fmt(m.valor_fim, 0)} (em reais de hoje)`,
+    sub: (m) => `R$ ${fmt(m.valor_fim, 0)} no fim, em reais de hoje`,
+    antes: (m) => `R$ ${fmt(m.valor_inicio, 0)}`,
     numero: (m) => m.variacao_pct,
   },
   {
     ind: "poder_compra", grupo: "dia", rotulo: "Salário mínimo frente ao custo de vida", melhor: "subir",
     principal: (m) => `${fmt(m.valor_fim, 0)}%`,
-    sub: (m) => `do salário necessário para uma família de 4 (DIEESE); era ${fmt(m.valor_inicio, 0)}% no início`,
+    sub: (m) => `do salário necessário para uma família de 4 (DIEESE), no fim`,
+    antes: (m) => `${fmt(m.valor_inicio, 0)}%`,
     numero: (m) => m.valor_fim,
   },
   {
     ind: "renda", grupo: "dia", rotulo: "Renda média do trabalhador", melhor: "subir",
     principal: (m) => `R$ ${fmt(m.valor_fim, 0)}`,
-    sub: (m) => `por mês, em reais de hoje; era R$ ${fmt(m.valor_inicio, 0)} no início (${sinal(m.variacao_pct)}%)`,
+    sub: (m) => `por mês no fim, em reais de hoje (${sinal(m.variacao_pct)}% no mandato)`,
+    antes: (m) => `R$ ${fmt(m.valor_inicio, 0)}`,
     numero: (m) => m.valor_fim, dif: (d) => `R$ ${fmt(d, 0)} a mais`,
   },
   {
     ind: "desemprego", grupo: "dia", rotulo: "Desemprego", melhor: "cair",
     principal: (m) => `${fmt(m.valor_fim)}%`,
-    sub: (m) => `no fim (${mesCurto(m.ultimo_mes)}); era ${fmt(m.valor_inicio)}% no início`,
+    sub: (m) => `no fim (${mesCurto(m.ultimo_mes)})`,
+    antes: (m) => `${fmt(m.valor_inicio)}%`,
     numero: (m) => m.valor_fim,
   },
   nivelAnual("pobreza", "Pessoas na pobreza", { curta: "%", longa: "da população", dif: " p.p." }, "cair"),
@@ -136,25 +140,29 @@ const CARTOES = [
   {
     ind: "dolar", grupo: "economia", rotulo: "Dólar",
     principal: (m) => `${sinal(m.variacao_pct)}%`,
-    sub: (m) => `de R$ ${fmt(m.valor_inicio, 2)} para R$ ${fmt(m.valor_fim, 2)}`,
+    sub: (m) => `R$ ${fmt(m.valor_fim, 2)} no fim`,
+    antes: (m) => `R$ ${fmt(m.valor_inicio, 2)}`,
     numero: (m) => m.variacao_pct,
   },
   {
     ind: "selic", grupo: "economia", rotulo: "Taxa Selic",
     principal: (m) => `${fmt(m.media)}% ao ano`,
-    sub: (m) => `média do mandato; de ${fmt(m.valor_inicio)}% para ${fmt(m.valor_fim)}%`,
+    sub: (m) => `média do mandato, terminou em ${fmt(m.valor_fim)}%`,
+    antes: (m) => `${fmt(m.valor_inicio)}%`,
     numero: (m) => m.media,
   },
   {
     ind: "divida", grupo: "economia", rotulo: "Dívida líquida do setor público", melhor: "cair",
     principal: (m) => `${sinal(m.variacao_pp)} p.p. do PIB`,
-    sub: (m) => `de ${fmt(m.valor_inicio)}% para ${fmt(m.valor_fim)}% do PIB`,
+    sub: (m) => `${fmt(m.valor_fim)}% do PIB no fim`,
+    antes: (m) => `${fmt(m.valor_inicio)}% do PIB`,
     numero: (m) => m.variacao_pp,
   },
   {
     ind: "reservas", grupo: "economia", rotulo: "Reservas internacionais", melhor: "subir",
     principal: (m) => `${sinal(m.variacao_pct)}%`,
-    sub: (m) => `de US$ ${fmt(m.valor_inicio / 1000, 1)} bi para US$ ${fmt(m.valor_fim / 1000, 1)} bi`,
+    sub: (m) => `US$ ${fmt(m.valor_fim / 1000, 1)} bi no fim`,
+    antes: (m) => `US$ ${fmt(m.valor_inicio / 1000, 1)} bi`,
     numero: (m) => m.variacao_pct,
   },
 ];
@@ -169,6 +177,13 @@ function tendencia(cfg, m, gid) {
 }
 const seloTendencia = (t, cfg) => t && el("span", { class: `selo ${t}` },
   t === "melhorou" ? `✓ ${cfg.selos?.[0] ?? "Melhorou"}` : `✕ ${cfg.selos?.[1] ?? "Piorou"}`);
+
+// O valor do início do mandato fica numa linha à parte, com a data, para não se misturar ao atual.
+function inicioDoMandato(cfg, m) {
+  if (!cfg.antes || m.valor_inicio == null) return null;
+  if (cfg.anual && anoIni(m) === anoFimM(m)) return null;
+  return { quando: cfg.anual ? anoIni(m) : mesCurto(m.primeiro_mes), valor: cfg.antes(m) };
+}
 
 const baseDe = (ind) => (ind === "salario_real" ? "salario_minimo" : ind);
 // Só entram os cartões cujos dados o pipeline exportou.
@@ -373,6 +388,9 @@ function motivoSemInfo(ind, g) {
   return "Não há medição para os anos deste mandato.";
 }
 
+const linhaInicio = (i) => i && el("span", { class: "kpi-antes" },
+  el("span", { class: "kpi-antes-rotulo" }, `Início do mandato (${i.quando})`), el("span", { class: "kpi-antes-valor" }, i.valor));
+
 function cartaoKpi(cfg, m, gid) {
   if (!m) {
     return el("div", { class: "kpi vazio" },
@@ -388,6 +406,7 @@ function cartaoKpi(cfg, m, gid) {
     el("span", { class: "kpi-topo" }, el("span", { class: "kpi-rotulo" }, cfg.rotulo), seloTendencia(t, cfg)),
     el("span", { class: "kpi-valor" }, cfg.principal(m)),
     el("span", { class: "kpi-sub" }, cfg.sub(m)),
+    linhaInicio(inicioDoMandato(cfg, m)),
     nota ? el("span", { class: "kpi-nota" }, nota) : null);
 }
 
@@ -503,7 +522,7 @@ function mostrarComparar(idA, idB, gr) {
     if (!m) return el("td", { class: "num vazio-celula" }, SEM_INFO);
     const t = tendencia(cfg, m, gid);
     return el("td", { class: `num${t ? ` ${t}` : ""}` }, el("span", { class: "valor" }, cfg.principal(m)),
-      seloTendencia(t, cfg), el("span", { class: "sub" }, cfg.sub(m)));
+      seloTendencia(t, cfg), el("span", { class: "sub" }, cfg.sub(m)), linhaInicio(inicioDoMandato(cfg, m)));
   };
   // Terceira coluna: qual dos dois números do cartão é maior e por quanto, na unidade do indicador
   // (pontos percentuais, anos, reais...). Maior não quer dizer melhor.
