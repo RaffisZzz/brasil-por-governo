@@ -2,6 +2,8 @@
 
 Site que mostra como estava o Brasil em cada governo, do dia a dia das pessoas à economia, de Deodoro da Fonseca até hoje, e permite comparar dois governos lado a lado.
 
+**Site:** https://raffiszzz.github.io/brasil-por-governo/
+
 **No dia a dia:** quanto os preços subiram, salário mínimo real, renda média do trabalhador, desemprego, pobreza e extrema pobreza, acesso a saneamento básico, mortalidade infantil, expectativa de vida, homicídios e analfabetismo.
 
 **Economia:** crescimento do PIB, dólar, taxa Selic, dívida líquida do setor público e reservas internacionais.
