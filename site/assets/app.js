@@ -70,9 +70,9 @@ const metrica = (gid, ind) => D.metricas.find((m) => m.governo_id === gid && m.i
 const GRUPOS = { dia: "No dia a dia", economia: "Economia" };
 let grupo = "dia";
 
-// principal/sub recebem a linha de metricas.json; "numero" é o valor que a coluna "Maior número"
-// do Comparar usa, e "dif" escreve a diferença entre dois governos (padrão: pontos percentuais).
-const pp = (d) => `${fmt(d)} p.p. a mais`;
+// principal/sub recebem a linha de metricas.json; "numero" é o valor que a coluna "Quem se saiu melhor"
+// do Comparar usa, e "dif" escreve o tamanho da diferença entre dois governos (padrão: pontos percentuais).
+const pp = (d) => `${fmt(d)} p.p.`;
 const anoIni = (m) => anoDe(m.primeiro_mes);
 const anoFimM = (m) => anoDe(m.ultimo_mes);
 // Indicadores anuais medidos em nível (pobreza, saneamento...): o último valor do mandato e o primeiro.
@@ -83,7 +83,7 @@ function nivelAnual(ind, rotulo, u, melhor, casas = 1) {
     sub: (m) => `${u.longa} em ${anoFimM(m)}`,
     antes: (m) => `${fmt(m.valor_inicio, casas)}${u.curta}`,
     numero: (m) => m.valor_fim,
-    dif: (d) => `${fmt(d, casas)}${u.dif} a mais`,
+    dif: (d) => `${fmt(d, casas)}${u.dif}`,
   };
 }
 const CARTOES = [
@@ -93,7 +93,7 @@ const CARTOES = [
     melhor: "cair", variacao: (m, gid) => { const t = metrica(gid, "ipca_12m"); return t && t.valor_fim - t.valor_inicio; },
     principal: (m) => `${fmt(m.acumulado)}%`,
     sub: (m) => `no mandato todo, ou ${fmt(m.media_anual)}% ao ano (IPCA)`,
-    numero: (m) => m.media_anual, dif: (d) => `${fmt(d)} p.p. ao ano a mais`,
+    numero: (m) => m.media_anual, dif: (d) => `${fmt(d)} p.p. ao ano`,
   },
   {
     ind: "salario_real", grupo: "dia", rotulo: "Salário mínimo, descontada a inflação", melhor: "subir",
@@ -114,7 +114,7 @@ const CARTOES = [
     principal: (m) => `R$ ${fmt(m.valor_fim, 0)}`,
     sub: (m) => `por mês no fim, em reais de hoje (${sinal(m.variacao_pct)}% no mandato)`,
     antes: (m) => `R$ ${fmt(m.valor_inicio, 0)}`,
-    numero: (m) => m.valor_fim, dif: (d) => `R$ ${fmt(d, 0)} a mais`,
+    numero: (m) => m.valor_fim, dif: (d) => `R$ ${fmt(d, 0)}`,
   },
   {
     ind: "desemprego", grupo: "dia", rotulo: "Desemprego", melhor: "cair",
@@ -524,7 +524,9 @@ function mostrarComparar(idA, idB, gr) {
     return el("td", { class: `num${t ? ` ${t}` : ""}` }, el("span", { class: "valor" }, cfg.principal(m)),
       seloTendencia(t, cfg), el("span", { class: "sub" }, cfg.sub(m)), linhaInicio(inicioDoMandato(cfg, m)));
   };
-  // Terceira coluna: qual dos dois números do cartão é maior e por quanto, na unidade do indicador
+  // Terceira coluna: quem se saiu melhor e por quanto, na unidade do indicador. Nos indicadores em
+  // que é bom subir (renda, saneamento...) vence o maior número; nos que é bom cair (desemprego,
+  // pobreza...), o menor. Dólar e Selic não têm lado bom: a coluna só diz qual número é maior.
   // (pontos percentuais, anos, reais...). Maior não quer dizer melhor.
   const maior = (cfg) => {
     const ma = metrica(ga.id, cfg.ind), mb = metrica(gb.id, cfg.ind);
@@ -532,10 +534,18 @@ function mostrarComparar(idA, idB, gr) {
     if (va == null || vb == null) return el("td", { class: "maior vazio-celula" }, "Sem comparação");
     const dif = Math.abs(va - vb);
     if (dif < 0.05) return el("td", { class: "maior" }, "Empate");
-    const [g, lado] = va > vb ? [ga, "a"] : [gb, "b"];
+    const tamanho = (cfg.dif ?? pp)(dif);
+    const ponto = (lado) => el("i", { class: `ponto ${lado}`, "aria-hidden": "true" });
+    if (!cfg.melhor) {
+      const [g, lado] = va > vb ? [ga, "a"] : [gb, "b"];
+      return el("td", { class: "maior" }, el("span", { class: "sem-vencedor" }, "Sem vencedor"),
+        el("span", { class: "sub" }, ponto(lado), `${nome(g)} tem o número maior, ${tamanho} a mais`));
+    }
+    const venceA = cfg.melhor === "subir" ? va > vb : va < vb;
+    const [g, lado] = venceA ? [ga, "a"] : [gb, "b"];
     return el("td", { class: "maior" },
-      el("span", { class: "vencedor" }, el("i", { class: `ponto ${lado}`, "aria-hidden": "true" }), nome(g)),
-      el("span", { class: "sub" }, (cfg.dif ?? pp)(dif)));
+      el("span", { class: "vencedor" }, ponto(lado), nome(g)),
+      el("span", { class: "sub" }, `${tamanho} a ${cfg.melhor === "subir" ? "mais" : "menos"}`));
   };
   const cabeca = (g, lado) => el("th", { class: `num ${lado}` },
     el("span", { class: "cabeca-governo" }, retrato(g, "mini"), el("span", {}, nome(g),
@@ -543,7 +553,7 @@ function mostrarComparar(idA, idB, gr) {
   document.getElementById("tab-comparar").replaceChildren(
     el("thead", {}, el("tr", {},
       el("th", {}, "Indicador"), cabeca(ga, "a"), cabeca(gb, "b"),
-      el("th", { class: "maior" }, "Maior número", el("span", { class: "sub" }, "e a diferença")))),
+      el("th", { class: "maior" }, "Quem se saiu melhor", el("span", { class: "sub" }, "e por quanto")))),
     el("tbody", {}, cartoes.map((cfg) => el("tr", {}, el("td", {}, cfg.rotulo), celula(cfg, ga.id), celula(cfg, gb.id), maior(cfg)))));
 
   document.getElementById("c-eventos").replaceChildren(...[[ga, "a"], [gb, "b"]].map(([g, lado]) => {
